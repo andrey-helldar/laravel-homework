@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Partner;
+
 class PartnersTableSeeder extends Seeder
 {
     /**
@@ -16,9 +18,9 @@ class PartnersTableSeeder extends Seeder
         $limit = 20;
 
         for ($i = 0; $i < $limit; $i++) {
-            \DB::table('partners')->insert([ //,
-				'email' => $faker->unique()->email,
-                'name' => $faker->unique()->company,                               
+            Partner::create([
+                'email' => $faker->unique()->email,
+                'name' => $faker->unique()->company,
             ]);
         }
     }
