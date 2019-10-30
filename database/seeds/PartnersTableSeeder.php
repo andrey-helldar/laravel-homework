@@ -1,21 +1,14 @@
 <?php
 
+use App\Expansions\Database\Seeder;
 use App\Models\Partner;
-use Illuminate\Database\Seeder;
 
 class PartnersTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $this->truncate(Partner::class);
 
-        $limit = 20;
-
-        for ($i = 0; $i < $limit; $i++) {
-            Partner::create([
-                'email' => $faker->unique()->email,
-                'name'  => $faker->unique()->company,
-            ]);
-        }
+        factory(Partner::class, 20)->create();
     }
 }

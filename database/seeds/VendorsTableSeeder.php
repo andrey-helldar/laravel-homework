@@ -1,21 +1,14 @@
 <?php
 
+use App\Expansions\Database\Seeder;
 use App\Models\Vendor;
-use Illuminate\Database\Seeder;
 
 class VendorsTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $this->truncate(Vendor::class);
 
-        $limit = 10;
-
-        for ($i = 0; $i < $limit; $i++) {
-            Vendor::create([
-                'email' => $faker->unique()->email,
-                'name'  => $faker->unique()->company,
-            ]);
-        }
+        factory(Vendor::class, 10)->create();
     }
 }

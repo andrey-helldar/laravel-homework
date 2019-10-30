@@ -1,22 +1,14 @@
 <?php
 
+use App\Expansions\Database\Seeder;
 use App\Models\Product;
-use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $this->truncate(Product::class);
 
-        $limit = 30;
-
-        for ($i = 1; $i <= $limit; $i++) {
-            Product::create([
-                'name'      => 'Product_' . $i,
-                'price'     => $faker->numberBetween(100, 1000),
-                'vendor_id' => $faker->numberBetween(1, 10),
-            ]);
-        }
+        factory(Product::class, 30)->create();
     }
 }
