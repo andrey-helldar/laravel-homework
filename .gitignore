@@ -4,9 +4,15 @@
 /public/storage
 /storage/*.key
 /vendor
+
 .env
 .env.backup
+
 Homestead.json
 Homestead.yaml
+
+.phpstorm.meta.php
+_ide_helper.php
+
 *.log
 *.cache
