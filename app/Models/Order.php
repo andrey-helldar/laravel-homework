@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Order
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $delivery_dt
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderProduct[] $products
+ * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
@@ -28,5 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
-    //
+    public function products(): HasMany
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
 }
