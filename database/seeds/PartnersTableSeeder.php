@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Partner;
+use Illuminate\Database\Seeder;
 
 class PartnersTableSeeder extends Seeder
 {
@@ -20,7 +19,7 @@ class PartnersTableSeeder extends Seeder
         for ($i = 0; $i < $limit; $i++) {
             Partner::create([
                 'email' => $faker->unique()->email,
-                'name' => $faker->unique()->company,
+                'name'  => $faker->unique()->company,
             ]);
         }
     }

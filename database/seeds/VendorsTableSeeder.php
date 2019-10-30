@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Vendor;
+use Illuminate\Database\Seeder;
 
 class VendorsTableSeeder extends Seeder
 {
@@ -24,7 +23,7 @@ class VendorsTableSeeder extends Seeder
             // ]);
             Vendor::create([
                 'email' => $faker->unique()->email,
-                'name' => $faker->unique()->company,
+                'name'  => $faker->unique()->company,
             ]);
         }
     }
