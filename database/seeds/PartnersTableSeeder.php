@@ -1,6 +1,6 @@
 <?php
 
-use App\Partner;
+use App\Models\Partner;
 use Illuminate\Database\Seeder;
 
 class PartnersTableSeeder extends Seeder

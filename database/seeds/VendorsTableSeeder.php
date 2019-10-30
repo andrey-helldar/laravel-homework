@@ -1,6 +1,6 @@
 <?php
 
-use App\Vendor;
+use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 
 class VendorsTableSeeder extends Seeder
