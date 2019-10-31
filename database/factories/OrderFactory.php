@@ -14,7 +14,7 @@ $factory->define(Order::class, function (Faker $faker) {
         'status'       => $status[rand(0, 2)],
         'client_email' => $faker->safeEmail,
         'partner_id'   => $faker->numberBetween(1, 20),
-        'delivery_dt'  => $created_at->copy()->addHours(rand(6, 50)),
+        'delivery_at'  => $created_at->copy()->addHours(rand(6, 50)),
         'created_at'   => $created_at,
         'updated_at'   => $created_at->copy()->addHours(rand(1, 5)),
     ];
