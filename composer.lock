@@ -4,8 +4,186 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe0497c36235af725982d83b3621886a",
+    "content-hash": "050458a156b932736f20597642663c40",
     "packages": [
+        {
+            "name": "andrey-helldar/api-response",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrey-helldar/api-response.git",
+                "reference": "543a12c99160c5a27e57db9ea45f0c9f132f7d78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrey-helldar/api-response/zipball/543a12c99160c5a27e57db9ea45f0c9f132f7d78",
+                "reference": "543a12c99160c5a27e57db9ea45f0c9f132f7d78",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6.9",
+                "symfony/http-foundation": "^3.0|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5|^7.0"
+            },
+            "suggest": {
+                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Helldar\\ApiResponse\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "psr-4": {
+                    "Helldar\\ApiResponse\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Helldar",
+                    "email": "helldar@ai-rus.com"
+                }
+            ],
+            "description": "Package for standardizing the responses from the API of your Symfony based applications.",
+            "keywords": [
+                "api response",
+                "api-response",
+                "laravel",
+                "response",
+                "symfony"
+            ],
+            "time": "2019-10-15T08:18:41+00:00"
+        },
+        {
+            "name": "asm89/stack-cors",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asm89/stack-cors.git",
+                "reference": "c163e2b614550aedcf71165db2473d936abbced6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asm89/stack-cors/zipball/c163e2b614550aedcf71165db2473d936abbced6",
+                "reference": "c163e2b614550aedcf71165db2473d936abbced6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/http-foundation": "~2.7|~3.0|~4.0",
+                "symfony/http-kernel": "~2.7|~3.0|~4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0 || ^4.8.10",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asm89\\Stack\\": "src/Asm89/Stack/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander",
+                    "email": "iam.asm89@gmail.com"
+                }
+            ],
+            "description": "Cross-origin resource sharing library and stack middleware",
+            "homepage": "https://github.com/asm89/stack-cors",
+            "keywords": [
+                "cors",
+                "stack"
+            ],
+            "time": "2017-12-20T14:37:45+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-cors",
+            "version": "v0.11.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-cors.git",
+                "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+                "reference": "03492f1a3bc74a05de23f93b94ac7cc5c173eec9",
+                "shasum": ""
+            },
+            "require": {
+                "asm89/stack-cors": "^1.2",
+                "illuminate/support": "^5.5|^6",
+                "php": ">=7",
+                "symfony/http-foundation": "^3.1|^4",
+                "symfony/http-kernel": "^3.1|^4"
+            },
+            "require-dev": {
+                "laravel/framework": "^5.5",
+                "orchestra/testbench": "3.3.x|3.4.x|3.5.x|3.6.x|3.7.x",
+                "phpunit/phpunit": "^4.8|^5.2|^7.0",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.11-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Cors\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Cors\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Adds CORS (Cross-Origin Resource Sharing) headers support in your Laravel application",
+            "keywords": [
+                "api",
+                "cors",
+                "crossdomain",
+                "laravel"
+            ],
+            "time": "2019-08-28T11:27:11+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -3176,6 +3354,132 @@
     ],
     "packages-dev": [
         {
+            "name": "andrey-helldar/lang-translations",
+            "version": "v2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrey-helldar/lang-translations.git",
+                "reference": "993fe2f18bf2573c940f7ff005797ea6f38e49fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrey-helldar/lang-translations/zipball/993fe2f18bf2573c940f7ff005797ea6f38e49fd",
+                "reference": "993fe2f18bf2573c940f7ff005797ea6f38e49fd",
+                "shasum": ""
+            },
+            "require": {
+                "andrey-helldar/support": "^1.5.0",
+                "ext-json": "*",
+                "illuminate/console": "^5.5|^6.0",
+                "php": "^7.1.3"
+            },
+            "suggest": {
+                "andrey-helldar/laravel-lang-publisher": "Publisher lang files of 68 languages for Laravel Framework 5.3+",
+                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Helldar\\LangTranslations\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Helldar\\LangTranslations\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Helldar",
+                    "email": "helldar@ai-rus.com"
+                }
+            ],
+            "description": "Extended translation for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "messages",
+                "translations"
+            ],
+            "time": "2019-09-02T14:12:00+00:00"
+        },
+        {
+            "name": "andrey-helldar/support",
+            "version": "v1.11.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrey-helldar/support.git",
+                "reference": "a2f8af2ae288f99292a4e5b9f2d91d81aaaba68f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/a2f8af2ae288f99292a4e5b9f2d91d81aaaba68f",
+                "reference": "a2f8af2ae288f99292a4e5b9f2d91d81aaaba68f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5|^8.0"
+            },
+            "suggest": {
+                "illuminate/database": "For using methods from the Dumper class and Eloquent helpers in Laravel framework",
+                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
+                "webpatser/laravel-uuid": "For using Laravel Eloquent abstract classes."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Helldar\\Support\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Helldar\\Support\\": "src/"
+                },
+                "files": [
+                    "src/helpers/digit.php",
+                    "src/helpers/dumper.php",
+                    "src/helpers/http.php",
+                    "src/helpers/strings.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Helldar",
+                    "email": "helldar@ai-rus.com"
+                }
+            ],
+            "description": "Support package is a collection of helpers and tools for projects.",
+            "keywords": [
+                "framework",
+                "laravel",
+                "support",
+                "symfony",
+                "yii",
+                "yii2"
+            ],
+            "time": "2019-09-16T13:05:19+00:00"
+        },
+        {
             "name": "barryvdh/laravel-ide-helper",
             "version": "v2.6.5",
             "source": {
@@ -4163,6 +4467,49 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
+        },
+        {
+            "name": "garygreen/pretty-routes",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/garygreen/pretty-routes.git",
+                "reference": "da76b81d247cc05045a1111b3163c224de2e46c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/garygreen/pretty-routes/zipball/da76b81d247cc05045a1111b3163c224de2e46c4",
+                "reference": "da76b81d247cc05045a1111b3163c224de2e46c4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "PrettyRoutes\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PrettyRoutes\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gary Green",
+                    "email": "holegary@gmail.com"
+                }
+            ],
+            "description": "Pretty routes for Laravel 5.",
+            "time": "2019-10-04T08:28:43+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
