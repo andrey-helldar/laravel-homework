@@ -29,7 +29,7 @@ class WeatherService
      */
     public function get()
     {
-        $response = $this->client->get($this->buildUrl(), ['verify' => false]);
+        $response = $this->client->get($this->buildUrl(), $this->buildOptions());
         $content  = $response->getBody()->getContents();
 
         return json_decode($content);
@@ -69,14 +69,22 @@ class WeatherService
         return http_build_query($params);
     }
 
+    private function buildOptions(): array
+    {
+        return [
+            'verify'  => false,
+            'headers' => ['X-Yandex-API-Key' => config('weather.api_key')],
+        ];
+    }
+
     private function getLatitude(): float
     {
-        return (float) config('latitude');
+        return (float) config('weather.latitude');
     }
 
     private function getLongitude(): float
     {
-        return (float) config('longitude');
+        return (float) config('weather.longitude');
     }
 
     private function getLanguage(): string
