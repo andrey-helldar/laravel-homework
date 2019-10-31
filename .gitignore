@@ -1,6 +1,4 @@
 /.idea
-/_docker
-
 /node_modules
 /public/hot
 /public/storage
