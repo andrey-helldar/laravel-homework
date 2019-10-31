@@ -13,7 +13,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
 
             $table->unsignedInteger('price')->default(0);
-            $table->unsignedInteger('vendor_id');
+            $table->unsignedBigInteger('vendor_id');
 
             $table->timestamps();
 

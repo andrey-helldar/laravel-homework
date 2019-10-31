@@ -13,7 +13,7 @@ class CreateOrdersTable extends Migration
 
             $table->tinyInteger('status');
             $table->string('client_email');
-            $table->unsignedInteger('partner_id');
+            $table->unsignedBigInteger('partner_id');
 
             $table->timestamp('delivery_at');
             $table->timestamps();

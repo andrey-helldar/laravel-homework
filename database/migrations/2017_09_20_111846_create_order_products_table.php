@@ -11,8 +11,8 @@ class CreateOrderProductsTable extends Migration
         Schema::create('order_products', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('order_id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('quantity')->default(1)->comment('Кол-во');
             $table->unsignedInteger('price')->default(0)->comment('Стоимость за еденицу');
 
