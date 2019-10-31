@@ -19,6 +19,8 @@
     },
     "require-dev": {
         "andrey-helldar/lang-translations": "^2.6",
+        "andrey-helldar/laravel-lang-publisher": "^2.1",
+        "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
@@ -71,6 +73,7 @@
             "@php artisan route:clear",
 
             "@php artisan lang-translations:update",
+            "@php artisan lang:update",
 
             "@php artisan ide-helper:models -W",
             "@php artisan ide-helper:eloquent",
