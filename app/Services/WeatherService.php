@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Validators\WeatherValidator;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 use function config;
@@ -14,23 +14,20 @@ class WeatherService
 {
     private $client;
 
-    private $url = 'https://api.weather.yandex.ru/v1/forecast';
+    private $validator;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, WeatherValidator $validator)
     {
-        $this->client = $client;
+        $this->client    = $client;
+        $this->validator = $validator;
     }
 
+    /**
+     * @throws \App\Exceptions\Api\ValidationException
+     *
+     * @return object
+     */
     public function get()
-    {
-        $ttl = config('weather.cache_ttl', 5);
-
-        return Cache::remember('weather', $ttl, function () {
-            return $this->load();
-        });
-    }
-
-    private function load()
     {
         $response = $this->client->get($this->buildUrl(), ['verify' => false]);
         $content  = $response->getBody()->getContents();
@@ -38,24 +35,69 @@ class WeatherService
         return json_decode($content);
     }
 
+    /**
+     * @throws \App\Exceptions\Api\ValidationException
+     *
+     * @return string
+     */
     private function buildUrl(): string
     {
-        $url = Str::finish($this->url, '?');
+        $url = config('weather.api_url');
+        $url = Str::finish($url, '?');
 
         return $url . $this->buildQuery();
     }
 
+    /**
+     * @throws \App\Exceptions\Api\ValidationException
+     *
+     * @return string
+     */
     private function buildQuery(): string
     {
         $params = [
-            'lat'   => config('latitude'),
-            'lon'   => config('longitude'),
-            'lang'  => config('weather.lang', 'ru_RU'),
-            'limit' => config('weather.limit', 7),
-            'hours' => config('weather.hours', true),
-            'extra' => config('weather.extra', false),
+            'lat'   => $this->getLatitude(),
+            'lon'   => $this->getLongitude(),
+            'lang'  => $this->getLanguage(),
+            'limit' => $this->getLimit(),
+            'hours' => $this->getHours(),
+            'extra' => $this->getExtra(),
         ];
 
+        $this->validator->check($params);
+
         return http_build_query($params);
+    }
+
+    private function getLatitude(): float
+    {
+        return (float) config('latitude');
+    }
+
+    private function getLongitude(): float
+    {
+        return (float) config('longitude');
+    }
+
+    private function getLanguage(): string
+    {
+        return config('weather.lang', 'ru_RU');
+    }
+
+    private function getLimit(): int
+    {
+        $value = (int) config('weather.limit', 7);
+
+        return $value >= 1 ? $value : 1;
+    }
+
+    private function getHours(): bool
+    {
+        return (bool) config('weather.hours', true);
+    }
+
+    private function getExtra(): bool
+    {
+        return (bool) config('weather.extra', false);
     }
 }

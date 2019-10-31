@@ -3,6 +3,12 @@
 return [
 
     /*
+     * Ссылка на Yandex Weather API.
+     */
+
+    'api_url' => 'https://api.weather.yandex.ru/v1/forecast',
+
+    /*
      * Ключ, полученный на этапе подключения к API Яндекс.Погоды.
      *
      * @see https://yandex.ru/dev/weather/doc/dg/concepts/about-docpage/#about__onboarding
@@ -65,12 +71,4 @@ return [
      */
 
     'extra' => false,
-
-    /*
-     * Кэширование значения в минутах.
-     *
-     * По-умолчанию, 5 минут.
-     */
-
-    'cache_ttl' => 5,
 ];
