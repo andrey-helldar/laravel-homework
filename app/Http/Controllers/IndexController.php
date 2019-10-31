@@ -7,6 +7,11 @@ use function trans;
 
 class IndexController extends Controller
 {
+    public function index($slug = null)
+    {
+        return view('index');
+    }
+
     public function abort($slug = null)
     {
         $message = trans('errors.405');

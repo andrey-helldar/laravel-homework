@@ -1,17 +1,28 @@
-const mix = require("laravel-mix");
-const path = require("path");
-const glob = require("glob-all");
+const mix = require('laravel-mix');
+const path = require('path');
+const glob = require('glob-all');
 
-const assets = "./resources/";
+const assets = './resources/';
 
 mix
+    .webpackConfig({
+        module: {
+            rules: [
+                {
+                    test: /resources[\\\/]lang.+\.(php|json)$/,
+                    loader: 'laravel-localization-loader'
+                }
+            ]
+        }
+    })
+
     .options({
         purifyCss: {
-            moduleExtensions: ["php", "vue", "js"],
+            moduleExtensions: ['php', 'vue', 'js'],
             paths: glob.sync([
-                path.join(__dirname, "resources/**/*.blade.php"),
-                path.join(__dirname, "resources/**/*.vue"),
-                path.join(__dirname, "resources/**/*.js")
+                path.join(__dirname, 'resources/**/*.blade.php'),
+                path.join(__dirname, 'resources/**/*.vue'),
+                path.join(__dirname, 'resources/**/*.js')
             ]),
             purifyOptions: {
                 whitelist: [],
@@ -20,15 +31,15 @@ mix
         }
     })
 
-    .sass(assets + "sass/app.scss", "public/css")
+    .sass(assets + 'sass/app.scss', 'public/css')
 
-    .js(assets + "js/app.js", "public/js")
+    .js(assets + 'js/app.js', 'public/js')
     .extract()
 
     .version()
     .sourceMaps()
 
     .browserSync({
-        proxy: "localhost:8000",
+        proxy: 'localhost',
         port: 3000
     });
