@@ -22,7 +22,7 @@ class Handler extends ExceptionHandler
             $code    = $exception->getCode();
         }
         else {
-            $message = $this->convertExceptionToArray($exception);
+            $message = $exception->getMessage();
             $code    = $this->isHttpException($exception) ? $exception->getStatusCode() : 500;
         }
 
