@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Services\OrdersService;
+use App\Models\Product;
+use App\Services\ProductsService;
 use Illuminate\Http\Request;
 
-use function api_response;
-use function trans;
-
-class OrdersController extends Controller
+class ProductsController extends Controller
 {
     private $service;
 
-    public function __construct(OrdersService $service)
+    public function __construct(ProductsService $service)
     {
         $this->service = $service;
     }
@@ -35,25 +32,25 @@ class OrdersController extends Controller
         return api_response($message);
     }
 
-    public function show(Order $order)
+    public function show(Product $product)
     {
-        $item = $this->service->show($order);
+        $item = $this->service->show($product);
 
         return api_response($item);
     }
 
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Product $product)
     {
-        $message = $this->service->update($request, $order)
+        $message = $this->service->update($request, $product)
             ? trans('statuses.updated')
             : trans('errors.0');
 
         return api_response($message);
     }
 
-    public function destroy(Order $order)
+    public function destroy(Product $product)
     {
-        $message = $this->service->destroy($order)
+        $message = $this->service->destroy($product)
             ? trans('statuses.deleted')
             : trans('errors.0');
 

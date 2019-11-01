@@ -2,16 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-class OrdersService
+class ProductsService
 {
     public function index(): ?Collection
     {
-        return Order::get()
-            ->load('partner', 'products');
+        return Product::get();
     }
 
     public function store(Request $request): bool
@@ -19,17 +18,17 @@ class OrdersService
         return true;
     }
 
-    public function show(Order $order): Order
+    public function show(Product $product): Product
     {
-        return $order->load('orderProducts');
+        return $product;
     }
 
-    public function update(Request $request, Order $order): bool
+    public function update(Request $request, Product $product): bool
     {
         return true;
     }
 
-    public function destroy(Order $order): bool
+    public function destroy(Product $product): bool
     {
         return true;
     }

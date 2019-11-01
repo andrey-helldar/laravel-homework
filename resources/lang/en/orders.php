@@ -10,4 +10,8 @@ return [
         '10' => 'accepted',
         '20' => 'finished',
     ],
+
+    'num' => 'Order #:value',
+
+    'selectedProductsWorth' => 'Selected products worth :value :symbol.',
 ];

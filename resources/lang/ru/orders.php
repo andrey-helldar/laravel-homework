@@ -10,4 +10,8 @@ return [
         '10' => 'подтвержден',
         '20' => 'завершен',
     ],
+
+    'num' => 'Заказ №:value',
+
+    'selectedProductsWorth' => 'Выбрано товаров на сумму :value :symbol.',
 ];
