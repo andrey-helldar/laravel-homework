@@ -1,20 +1,18 @@
 <template>
     <v-content>
         <v-container
-                fluid
                 fill-height
+                fluid
         >
-            <v-layout
-                    align-center
-            >
-                <v-flex style="text-align: center">
-                    Hello World!
-                </v-flex>
-            </v-layout>
+            <transition-view-component/>
         </v-container>
     </v-content>
 </template>
 
 <script>
-    export default {};
+    import TransitionViewComponent from './_transition-view';
+
+    export default {
+        components: {TransitionViewComponent}
+    };
 </script>

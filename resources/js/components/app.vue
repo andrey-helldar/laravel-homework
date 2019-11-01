@@ -10,10 +10,10 @@
 </template>
 
 <script>
-    import HeaderComponent from './_header';
-    import ContentComponent from './_content';
-    import FooterComponent from './_footer';
-    import NavComponent from './_nav';
+    import HeaderComponent from './layout/_header';
+    import ContentComponent from './layout/_content';
+    import FooterComponent from './layout/_footer';
+    import NavComponent from './layout/nav/_index';
 
     export default {
         components: {HeaderComponent, ContentComponent, FooterComponent, NavComponent}

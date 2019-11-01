@@ -10,7 +10,6 @@
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-        "@mdi/font": "^4.5.95",
         "axios": "^0.19",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.2.2",
@@ -20,6 +19,8 @@
         "laravel-localization-loader": "^1.0.5",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
+        "material-design-icons-iconfont": "^5.0.1",
+        "nprogress": "^0.2.0",
         "popper.js": "^1.16.0",
         "purify-css": "^1.2.5",
         "purifycss-webpack": "^0.7.0",
