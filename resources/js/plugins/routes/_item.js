@@ -63,8 +63,7 @@ export default class Item
             _.each(item, child => {
                 this._children.push(child);
             });
-        }
-        else {
+        } else {
             this._children.push(item);
         }
 

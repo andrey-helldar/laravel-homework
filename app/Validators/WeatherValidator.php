@@ -12,7 +12,7 @@ class WeatherValidator
     /**
      * @param array $params
      *
-     * @throws \App\Exceptions\Api\ValidationException
+     * @throws ValidationException
      */
     public function check(array $params)
     {

@@ -45,21 +45,21 @@
 
             icon() {
                 return this.item.fact.icon
-                    ? this.url.icon.replace('%s', this.item.fact.icon)
-                    : null;
+                        ? this.url.icon.replace('%s', this.item.fact.icon)
+                        : null;
             }
         },
 
         methods: {
             get() {
                 axios()
-                    .get(this.url.data)
-                    .then(response => {
-                        _.set(this, 'item',
-                            _.merge(this.item, response.data)
-                        );
-                    })
-                    .run();
+                        .get(this.url.data)
+                        .then(response => {
+                            _.set(this, 'item',
+                                    _.merge(this.item, response.data)
+                            );
+                        })
+                        .run();
             }
         }
     };

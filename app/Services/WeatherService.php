@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\Api\ValidationException;
 use App\Validators\WeatherValidator;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class WeatherService
     }
 
     /**
-     * @throws \App\Exceptions\Api\ValidationException
+     * @throws ValidationException
      *
      * @return object
      */
@@ -36,7 +37,7 @@ class WeatherService
     }
 
     /**
-     * @throws \App\Exceptions\Api\ValidationException
+     * @throws ValidationException
      *
      * @return string
      */
@@ -49,7 +50,7 @@ class WeatherService
     }
 
     /**
-     * @throws \App\Exceptions\Api\ValidationException
+     * @throws ValidationException
      *
      * @return string
      */

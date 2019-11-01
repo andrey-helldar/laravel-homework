@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Vendor
@@ -11,19 +15,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $email
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Product[] $products
  * @property-read int|null $products_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Vendor whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|Vendor newModelQuery()
+ * @method static Builder|Vendor newQuery()
+ * @method static Builder|Vendor query()
+ * @method static Builder|Vendor whereCreatedAt($value)
+ * @method static Builder|Vendor whereEmail($value)
+ * @method static Builder|Vendor whereId($value)
+ * @method static Builder|Vendor whereName($value)
+ * @method static Builder|Vendor whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Vendor extends Model
 {

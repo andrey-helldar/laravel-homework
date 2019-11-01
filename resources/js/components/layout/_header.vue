@@ -1,8 +1,8 @@
 <template>
     <v-app-bar
             app
-            dark
             color="indigo"
+            dark
     >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
 

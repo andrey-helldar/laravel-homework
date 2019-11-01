@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer
-            v-model="drawer"
             app
+            v-model="drawer"
     >
         <weather-component/>
 

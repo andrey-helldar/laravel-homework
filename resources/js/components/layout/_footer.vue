@@ -1,9 +1,9 @@
 <template>
     <v-footer
             app
+            class="center-align"
             color="indigo"
             min-height="48"
-            class="center-align"
     >
         <span class="white--text">{{ currentYear() }}</span>
     </v-footer>

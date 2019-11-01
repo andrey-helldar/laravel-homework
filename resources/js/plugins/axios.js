@@ -17,8 +17,7 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
     ax.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-}
-else {
+} else {
     console.error('CSRF token not found!');
 }
 
@@ -225,12 +224,10 @@ class AxiosService
 
             if (_.isArray(message)) {
                 message = _.flattenDeep(message).join('<br>');
-            }
-            else if (_.isObject(message)) {
+            } else if (_.isObject(message)) {
                 message = _.flatMapDeep(message).join('<br>');
             }
-        }
-        catch (e) {
+        } catch (e) {
             message = e.message;
             type = 'error';
         }

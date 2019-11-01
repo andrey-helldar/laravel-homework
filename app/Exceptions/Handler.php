@@ -20,8 +20,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ClientException) {
             $message = $this->getClientExceptionMessage($exception);
             $code    = $exception->getCode();
-        }
-        else {
+        } else {
             $message = $exception->getMessage();
             $code    = $this->isHttpException($exception) ? $exception->getStatusCode() : 500;
         }

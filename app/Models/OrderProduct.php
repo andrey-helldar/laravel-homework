@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\OrderProduct
@@ -12,19 +15,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $product_id
  * @property int $quantity Кол-во
  * @property int $price Стоимость за еденицу
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereOrderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|OrderProduct newModelQuery()
+ * @method static Builder|OrderProduct newQuery()
+ * @method static Builder|OrderProduct query()
+ * @method static Builder|OrderProduct whereCreatedAt($value)
+ * @method static Builder|OrderProduct whereId($value)
+ * @method static Builder|OrderProduct whereOrderId($value)
+ * @method static Builder|OrderProduct wherePrice($value)
+ * @method static Builder|OrderProduct whereProductId($value)
+ * @method static Builder|OrderProduct whereQuantity($value)
+ * @method static Builder|OrderProduct whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class OrderProduct extends Model
 {
