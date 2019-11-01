@@ -25,10 +25,10 @@
                 table: {
                     headers: [
                         {text: '#', value: 'id'},
-                        {text: this.trans('form.status'), value: 'status'},
-                        {text: this.trans('form.partner'), value: 'partner.name'},
-                        {text: this.trans('form.price'), value: 'price'},
-                        {text: this.trans('form.products'), value: 'products'},
+                        {text: this.trans('forms.status'), value: 'status'},
+                        {text: this.trans('forms.partner'), value: 'partner.name'},
+                        {text: this.trans('forms.price'), value: 'price'},
+                        {text: this.trans('forms.products'), value: 'products'},
                         {text: this.trans('titles.actions'), value: 'actions'}
                     ],
                     editRouteName: 'orders.edit',

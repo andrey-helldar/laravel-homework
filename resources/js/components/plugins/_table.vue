@@ -53,9 +53,14 @@
         </template>
 
         <template v-slot:item.status="{ item }">
-            <status-chip-new v-if="item.status === 0"/>
-            <status-chip-accepted v-if="item.status === 10"/>
-            <status-chip-finished v-if="item.status === 20"/>
+            <router-link
+                    :to="{name: editRouteName, params: {id: item.id}}"
+                    class="link-as-text"
+            >
+                <status-chip-new v-if="item.status === 0"/>
+                <status-chip-accepted v-if="item.status === 10"/>
+                <status-chip-finished v-if="item.status === 20"/>
+            </router-link>
         </template>
 
         <template v-slot:item.actions="{ item }">
@@ -142,7 +147,7 @@
 
                 rowsPerPageItems: [
                     10, 25, 50,
-                    {'text': '$vuetify.dataIterator.rowsPerPageAll', 'value': -1}
+                    {'text': this.trans('buttons.rowsPerPage'), 'value': -1}
                 ],
 
                 search: null,
@@ -218,5 +223,9 @@
         color: #000;
         cursor: pointer;
         text-decoration: none;
+
+        .v-chip__content {
+            cursor: inherit;
+        }
     }
 </style>

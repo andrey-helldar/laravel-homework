@@ -163,7 +163,7 @@ class AxiosService
     }
 
     __async() {
-        window.vm.$snotify.async(Lang.get(this._loadingMessage), '', () => new Promise((resolve, reject) => {
+        window.vm.$snotify.async(this._loadingMessage, '', () => new Promise((resolve, reject) => {
             const method = _.toLower(this._method);
             const config = {
                 closeOnClick: true,
@@ -208,11 +208,11 @@ class AxiosService
     __checkMessages() {
         this._loadingMessage = this._loadingMessage
             ? Lang.get(this._loadingMessage)
-            : _.get(this._availableMessages, `${this._method}.loading`);
+            : Lang.get(_.get(this._availableMessages, `${this._method}.loading`));
 
         this._loadedMessage = this._loadedMessage
             ? Lang.get(this._loadedMessage)
-            : _.get(this._availableMessages, `${this._method}.loaded`);
+            : Lang.get(_.get(this._availableMessages, `${this._method}.loaded`));
     }
 
     __parse(message, type = 'info') {
@@ -236,6 +236,6 @@ class AxiosService
     }
 }
 
-export default function () {
+export default () => {
     return new AxiosService();
 }
