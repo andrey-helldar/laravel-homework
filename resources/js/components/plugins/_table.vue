@@ -199,7 +199,7 @@
                 let locale = this.trans('orders.locale');
 
                 let sum = _.sumBy(products, obj => {
-                    return obj?.price;
+                    return obj?.price * obj?.pivot?.quantity;
                 });
 
                 return math.moneyFormat(sum, locale);
