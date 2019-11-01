@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default {
     namespaced: true,
 
@@ -17,6 +19,8 @@ export default {
     mutations: {
         pageTitle(state, value) {
             state.pageTitle = value;
+
+            _.set(window, 'document.title', value);
         },
 
         drawler(state, value) {

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import main from './modules/main';
+import main from './modules/_main';
 
 Vue.use(Vuex);
 

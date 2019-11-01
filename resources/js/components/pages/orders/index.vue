@@ -37,7 +37,15 @@
             };
         },
 
+        beforeMount() {
+            this.setPageTitle();
+        },
+
         methods: {
+            setPageTitle() {
+                this.$store.commit('main/pageTitle', this.trans('titles.orders'));
+            },
+
             trans(key) {
                 return Lang.get(key);
             }
