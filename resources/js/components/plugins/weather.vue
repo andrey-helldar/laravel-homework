@@ -1,5 +1,9 @@
 <template>
-    <v-list-item>
+    <v-list-item two-line>
+        <v-list-item-avatar v-if="icon">
+            <img :src="icon" alt="icon">
+        </v-list-item-avatar>
+
         <v-list-item-content>
             <v-list-item-title class="title" v-text="item.fact.season"/>
             <v-list-item-subtitle v-text="temp"/>
@@ -15,12 +19,16 @@
     export default {
         data() {
             return {
-                url: '/weather',
+                url: {
+                    data: '/weather',
+                    icon: 'https://yastatic.net/weather/i/icons/blueye/color/svg/%s.svg'
+                },
 
                 item: {
                     fact: {
                         season: '---',
-                        temp: '---'
+                        temp: '---',
+                        icon: null
                     }
                 }
             };
@@ -33,13 +41,19 @@
         computed: {
             temp() {
                 return this.item.fact.temp + '℃';
+            },
+
+            icon() {
+                return this.item.fact.icon
+                    ? this.url.icon.replace('%s', this.item.fact.icon)
+                    : null;
             }
         },
 
         methods: {
             get() {
                 axios()
-                    .get(this.url)
+                    .get(this.url.data)
                     .then(response => {
                         _.set(this, 'item',
                             _.merge(this.item, response.data)
