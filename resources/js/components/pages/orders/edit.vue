@@ -47,18 +47,12 @@
                 </v-flex>
 
                 <v-flex xs12 md12>
-                    <v-select
-                            v-model="selectedProducts"
-                            :items="products"
-                            :label="trans('forms.products')"
-                            :hint="productsSum"
-                            item-text="name"
-                            item-value="id"
-                            persistent-hint
-                            multiple
-                            chips
-                            @change="changed"
-                    />
+                    <v-data-table
+                            :headers="tables.products.headers"
+                            :items="form.order_products"
+                    >
+
+                    </v-data-table>
                 </v-flex>
 
                 <v-flex xs12 class="text-center">
@@ -81,7 +75,6 @@
 
     import axios from '../../../plugins/axios';
     import Lang from '../../../plugins/lang';
-    import math from '../../../plugins/math';
 
     import _ from 'lodash';
 
@@ -114,6 +107,15 @@
                 partners: [],
                 products: [],
 
+                tables: {
+                    products: {
+                        headers: [
+                            {text: this.trans('forms.name'), value: 'name'},
+                            {text: this.trans('forms.price'), value: 'price'}
+                        ]
+                    }
+                },
+
                 errors: {},
 
                 progress: false,
@@ -145,49 +147,6 @@
                 },
                 set() {
                 }
-            },
-
-            selectedProducts: {
-                get() {
-                    let _items = this.form?.order_products
-                            ? this.form?.order_products
-                            : [];
-
-                    return _.uniq(
-                            _.flatMap(_items, item => {
-                                return item.id;
-                            })
-                    );
-                },
-                set(values) {
-                    this.form.order_products =
-                            _.uniq(
-                                    _.filter(this.products, product => {
-                                        return _.indexOf(values, product.id) > -1;
-                                    })
-                            );
-                }
-            },
-
-            productsSum() {
-                let _products = this.form?.order_products
-                        ? this.form?.order_products
-                        : [];
-
-                let _filtered = _.filter(_products, item => {
-                    return _.indexOf(this.selectedProducts, item.id) > -1;
-                });
-
-                let _sum = _.sumBy(_filtered, item => {
-                    return item.price;
-                });
-
-                let locale = this.trans('orders.locale');
-
-                return this.trans('orders.selectedProductsWorth', {
-                    value: math.moneyFormat(_sum, locale),
-                    symbol: this.trans('orders.symbol')
-                });
             }
         },
 
