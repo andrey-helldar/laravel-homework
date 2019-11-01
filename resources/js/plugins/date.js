@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class
 {
     static get(value = null) {
@@ -7,9 +9,9 @@ export default class
     }
 
     static parse(value = null) {
-        return value
-            ? new Date(value)
-            : null;
+        return _.isEmpty(value)
+            ? new Date()
+            : new Date(value);
     }
 
     static build(date) {
