@@ -1,22 +1,29 @@
+function load(path) {
+    return require(`../../../lang/${path}`);
+}
+
 export default {
-    'en.buttons': require('../../../lang/en/buttons.php'),
-    'ru.buttons': require('../../../lang/ru/buttons.php'),
+    'en.buttons': load('en/buttons.php'),
+    'ru.buttons': load('ru/buttons.php'),
 
-    'en.forms': require('../../../lang/en/forms.php'),
-    'ru.forms': require('../../../lang/ru/forms.php'),
+    'en.forms': load('en/forms.php'),
+    'ru.forms': load('ru/forms.php'),
 
-    'en.pagination': require('../../../lang/en/pagination.php'),
-    'ru.pagination': require('../../../lang/ru/pagination.php'),
+    'en.pagination': load('en/pagination.php'),
+    'ru.pagination': load('ru/pagination.php'),
 
-    'en.statuses': require('../../../lang/en/statuses.php'),
-    'ru.statuses': require('../../../lang/ru/statuses.php'),
+    'en.statuses': load('en/statuses.php'),
+    'ru.statuses': load('ru/statuses.php'),
 
-    'en.titles': require('../../../lang/en/titles.php'),
-    'ru.titles': require('../../../lang/ru/titles.php'),
+    'en.titles': load('en/titles.php'),
+    'ru.titles': load('ru/titles.php'),
 
-    'en.errors': require('../../../lang/en/errors.php'),
-    'ru.errors': require('../../../lang/ru/errors.php'),
+    'en.errors': load('en/errors.php'),
+    'ru.errors': load('ru/errors.php'),
 
-    'en.orders': require('../../../lang/en/orders.php'),
-    'ru.orders': require('../../../lang/ru/orders.php')
+    'en.orders': load('en/orders.php'),
+    'ru.orders': load('ru/orders.php'),
+
+    'en.info': load('en/info.php'),
+    'ru.info': load('ru/info.php')
 };

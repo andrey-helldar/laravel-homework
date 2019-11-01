@@ -5,6 +5,7 @@
                 :actions="table.actions"
                 :edit-route-name="table.editRouteName"
                 :headers="table.headers"
+                :messages="table.messages"
                 :url="url"
         />
 
@@ -32,7 +33,11 @@
                         {text: this.trans('titles.actions'), value: 'actions'}
                     ],
                     editRouteName: 'orders.edit',
-                    actions: ['edit', 'delete']
+                    actions: ['edit', 'delete'],
+                    messages: {
+                        loading: this.trans('statuses.retrievingOrderInformation'),
+                        loaded: this.trans('statuses.orderInformationReceivedSuccessfully')
+                    }
                 }
             };
         },
@@ -52,3 +57,9 @@
         }
     };
 </script>
+
+<style>
+    .snotify-success .snotifyToast__inner {
+        color: #C8E6C9;
+    }
+</style>

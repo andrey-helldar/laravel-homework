@@ -96,7 +96,7 @@
 
                 <v-card>
                     <v-card-title class="headline">
-                        {{ trans('titles.confirm')}}
+                        {{ trans('titles.confirm') }}
 
                         <v-spacer/>
 
@@ -108,7 +108,7 @@
                         </v-btn>
                     </v-card-title>
 
-                    <v-card-text v-text="trans('info.destroy')"/>
+                    <v-card-text v-text="trans('info.confirm.delete')"/>
 
                     <v-divider/>
 
@@ -137,7 +137,7 @@
     import _ from 'lodash';
 
     export default {
-        props: ['headers', 'url', 'edit-route-name', 'actions'],
+        props: ['headers', 'url', 'edit-route-name', 'actions', 'messages'],
 
         components: {IconDelete, IconEdit, StatusChipNew, StatusChipAccepted, StatusChipFinished},
 
@@ -161,15 +161,17 @@
         methods: {
             get() {
                 axios()
-                    .get(this.url)
+                    .get(this.fixUrl())
+                    .messages(this.messages?.loading, this.messages?.loaded)
                     .then(response => this.items = response.data)
                     .run();
             },
 
             destroy(id) {
+                console.log(this.fixUrl(id));
                 axios()
-                    .delete(this.url + id)
-                    .messages(`status.deleting`, `status.deleted`)
+                    .delete(this.fixUrl(id))
+                    .messages(this.messages?.deleting, this.messages?.deleted)
                     .then(() => {
                         this.closeDialog(id);
                         this.get();
@@ -205,6 +207,16 @@
 
             strRandom() {
                 return str.random();
+            },
+
+            fixUrl(id = null) {
+                let _url = _.endsWith(this.url, '/')
+                    ? this.url
+                    : this.url + '/';
+
+                return _.isNull(id)
+                    ? _url
+                    : _url + id;
             }
         }
     };

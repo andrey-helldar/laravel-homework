@@ -6,11 +6,10 @@ const ax = require('axios');
 ax.defaults.baseURL = '/api';
 
 ax.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-ax.defaults.headers.get['Content-Type'] = 'application/json';
-ax.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-ax.defaults.headers.put['Content-Type'] = 'multipart/form-data';
-ax.defaults.headers.delete['Content-Type'] = 'application/json';
+ax.defaults.headers.common['Content-Type'] = 'application/json';
+ax.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
+ax.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+ax.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
 
 
 let token = document.head.querySelector('meta[name="csrf-token"]');

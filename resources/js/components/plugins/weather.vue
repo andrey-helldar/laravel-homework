@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import Lang from '../../plugins/lang';
     import axios from '../../plugins/axios';
     import date from '../../plugins/date';
 
@@ -32,6 +33,11 @@
                         temp: '---',
                         icon: null
                     }
+                },
+
+                statuses: {
+                    loading: this.trans('statuses.gettingWeatherInformation'),
+                    loaded: this.trans('statuses.weatherInformationSuccessfullyReceived')
                 }
             };
         },
@@ -60,12 +66,17 @@
             get() {
                 axios()
                         .get(this.url.data)
+                        .messages(this.statuses.loading, this.statuses.loaded)
                         .then(response => {
                             _.set(this, 'item',
                                     _.merge(this.item, response.data)
                             );
                         })
                         .run();
+            },
+
+            trans(key) {
+                return Lang.get(key);
             }
         }
     };
