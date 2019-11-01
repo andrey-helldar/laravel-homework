@@ -15,5 +15,8 @@ export default {
     'ru.titles': require('../../../lang/ru/titles.php'),
 
     'en.errors': require('../../../lang/en/errors.php'),
-    'ru.errors': require('../../../lang/ru/errors.php')
+    'ru.errors': require('../../../lang/ru/errors.php'),
+
+    'en.orders': require('../../../lang/en/orders.php'),
+    'ru.orders': require('../../../lang/ru/orders.php')
 };

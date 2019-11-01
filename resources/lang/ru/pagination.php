@@ -1,6 +1,6 @@
 <?php
 
-return [
-    'next'     => 'Вперёд &raquo;',
-    'previous' => '&laquo; Назад',
-];
+return array (
+  'next' => 'Вперёд &raquo;',
+  'previous' => '&laquo; Назад',
+);

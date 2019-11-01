@@ -1,11 +1,13 @@
 <?php
 
-return [
-    'action'   => 'Действие',
-    'actions'  => 'Действия',
-    'active'   => 'Активные',
-    'deleted'  => 'Удаленные',
-    'finished' => 'Завершенные',
-    'trash'    => 'Мусор',
-    'trashed'  => 'Удаленные',
-];
+return array (
+  'action' => 'Действие',
+  'actions' => 'Действия',
+  'active' => 'Активные',
+  'dashboard' => 'Главная',
+  'deleted' => 'Удаленные',
+  'finished' => 'Завершенные',
+  'orders' => 'Заказы',
+  'trash' => 'Мусор',
+  'trashed' => 'Удаленные',
+);

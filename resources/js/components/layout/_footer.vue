@@ -2,7 +2,7 @@
     <v-footer
             app
             class="center-align"
-            color="indigo"
+            color="deep-purple"
             min-height="48"
     >
         <span class="white--text">{{ currentYear() }}</span>

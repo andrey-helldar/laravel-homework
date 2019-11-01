@@ -1,11 +1,13 @@
 <?php
 
-return [
-    'action'   => 'Action',
-    'actions'  => 'Actions',
-    'active'   => 'Active',
-    'deleted'  => 'Deleted',
-    'finished' => 'Finished',
-    'trash'    => 'Trash',
-    'trashed'  => 'Trashed',
-];
+return array (
+  'action' => 'Action',
+  'actions' => 'Actions',
+  'active' => 'Active',
+  'dashboard' => 'Dashboard',
+  'deleted' => 'Deleted',
+  'finished' => 'Finished',
+  'orders' => 'Orders',
+  'trash' => 'Trash',
+  'trashed' => 'Trashed',
+);

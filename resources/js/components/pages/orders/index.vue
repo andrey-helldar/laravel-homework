@@ -1,37 +1,46 @@
 <template>
     <v-layout justify-center>
 
-        <v-data-table
-                :headers="headers"
-                :items="items"
-                :items-per-page-options="rowsPerPageItems"
-                :search="search"
-                item-key="title"
-        >
-
-        </v-data-table>
+        <table-component
+                :actions="table.actions"
+                :edit-route-name="table.editRouteName"
+                :headers="table.headers"
+                :url="url"
+        />
 
     </v-layout>
 </template>
 <script type="text/javascript">
+    import TableComponent from '../../plugins/_table';
+
+    import Lang from '../../../plugins/lang';
+
     export default {
+        components: {TableComponent},
+
         data() {
             return {
-                headers: [],
-                items: [],
-                search: null,
+                url: '/orders',
 
-                rowsPerPageItems: [
-                    10, 25, 50,
-                    {'text': '$vuetify.dataIterator.rowsPerPageAll', 'value': -1}
-                ]
+                table: {
+                    headers: [
+                        {text: '#', value: 'id'},
+                        {text: this.trans('form.status'), value: 'status'},
+                        {text: this.trans('form.partner'), value: 'partner.name'},
+                        {text: this.trans('form.price'), value: 'price'},
+                        {text: this.trans('form.products'), value: 'products'},
+                        {text: this.trans('titles.actions'), value: 'actions'}
+                    ],
+                    editRouteName: 'orders.edit',
+                    actions: ['edit', 'delete']
+                }
             };
         },
-        mounted() {
-            //
-        },
+
         methods: {
-            //
+            trans(key) {
+                return Lang.get(key);
+            }
         }
     };
 </script>

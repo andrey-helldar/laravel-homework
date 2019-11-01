@@ -4,20 +4,35 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Services\OrdersService;
 use Illuminate\Http\Request;
 
 use function api_response;
+use function trans;
 
 class OrdersController extends Controller
 {
+    private $service;
+
+    public function __construct(OrdersService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        return api_response([]);
+        $items = $this->service->index();
+
+        return api_response($items);
     }
 
     public function store(Request $request)
     {
-        return api_response();
+        $message = $this->service->store($request)
+            ? trans('statuses.stored')
+            : trans('errors.0');
+
+        return api_response($message);
     }
 
     public function show(Order $order)
@@ -25,18 +40,21 @@ class OrdersController extends Controller
         return api_response($order);
     }
 
-    public function edit(Order $order)
-    {
-        return api_response('ok');
-    }
-
     public function update(Request $request, Order $order)
     {
-        return api_response('ok');
+        $message = $this->service->update($request, $order)
+            ? trans('statuses.updated')
+            : trans('errors.0');
+
+        return api_response($message);
     }
 
     public function destroy(Order $order)
     {
-        return api_response('ok');
+        $message = $this->service->destroy($order)
+            ? trans('statuses.deleted')
+            : trans('errors.0');
+
+        return api_response($message);
     }
 }

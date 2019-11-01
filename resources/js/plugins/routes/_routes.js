@@ -1,4 +1,4 @@
-import {ICON_DASHBOARD, ICON_PAGES} from '../constants/_icons';
+import {ICON_ASSIGNMENT, ICON_DASHBOARD} from '../constants/_icons';
 
 import Item from './_item';
 import map from './_map';
@@ -15,7 +15,7 @@ let routes = [
     (new Item)
         .path('/orders')
         .component()
-        .icon(ICON_PAGES)
+        .icon(ICON_ASSIGNMENT)
         .title('titles.orders')
         .children(
             [

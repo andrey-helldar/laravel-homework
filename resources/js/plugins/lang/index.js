@@ -1,5 +1,5 @@
 import Lang from 'lang.js';
-import messages from './messages';
+import messages from './_messages';
 
 let _html = document.getElementsByTagName('html')[0];
 

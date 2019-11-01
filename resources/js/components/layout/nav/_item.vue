@@ -79,7 +79,7 @@
 <script type="text/javascript">
     import _ from 'lodash';
 
-    import Lang from '../../../plugins/lang/user';
+    import Lang from '../../../plugins/lang';
 
     export default {
         props: ['items'],

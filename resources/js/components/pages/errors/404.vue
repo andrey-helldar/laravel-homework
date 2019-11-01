@@ -5,7 +5,7 @@
 </template>
 <script type="text/javascript">
     import ErrorComponent from './_layout';
-    import Lang from '../../../plugins/lang/user';
+    import Lang from '../../../plugins/lang';
 
     export default {
         components: {ErrorComponent},

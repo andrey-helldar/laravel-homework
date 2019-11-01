@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Lang from './lang/user';
+import Lang from './lang';
 
 const ax = require('axios');
 

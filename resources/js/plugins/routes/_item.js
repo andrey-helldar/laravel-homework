@@ -1,4 +1,4 @@
-import Lang from '../lang/user';
+import Lang from '../lang';
 
 import Vue from 'vue';
 import _ from 'lodash';

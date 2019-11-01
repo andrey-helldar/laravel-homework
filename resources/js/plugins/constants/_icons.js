@@ -3,3 +3,4 @@ export const ICON_COLLECTIONS = 'collections';
 export const ICON_DASHBOARD = 'dashboard';
 export const ICON_PAGES = 'pages';
 export const ICON_TRENDING_UP = 'trending_up';
+export const ICON_ASSIGNMENT = 'assignment';
