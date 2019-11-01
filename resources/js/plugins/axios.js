@@ -148,10 +148,7 @@ class AxiosService
     run() {
         this.__checkMessages();
         this.__runIfNotEmpty(this._beforeRun);
-
-        setTimeout(() => {
-            this.__async();
-        }, 1000);
+        this.__runWhenSnotifyLoaded();
     }
 
     baseURL() {
@@ -160,6 +157,18 @@ class AxiosService
 
     csrf() {
         return ax.defaults.headers.common['X-CSRF-TOKEN'];
+    }
+
+    async __runWhenSnotifyLoaded() {
+        while (typeof window?.vm?.$snotify === 'undefined') {
+            await this.__sleep(100);
+        }
+
+        this.__async();
+    }
+
+    __sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     __async() {
