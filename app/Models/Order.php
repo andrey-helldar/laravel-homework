@@ -2,32 +2,41 @@
 
 namespace App\Models;
 
-use App\Traits\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property int $status
+ * @property string $client_email
+ * @property int $partner_id
+ * @property string $delivery_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Partner $partner
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereClientEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeliveryAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order wherePartnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Order extends Model
 {
-    use ModelHelper;
-
-    /**
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
-     *
-     * @return BelongsToMany
-     */
     public function products(): BelongsToMany
     {
-        $table = $this->helper()->table(OrderProduct::class);
-
-        return $this->belongsToMany(Product::class, $table)
+        return $this->belongsToMany(Product::class)
             ->withPivot(['quantity', 'price']);
-    }
-
-    public function orderProducts(): HasMany
-    {
-        return $this->hasMany(OrderProduct::class);
     }
 
     public function partner(): BelongsTo

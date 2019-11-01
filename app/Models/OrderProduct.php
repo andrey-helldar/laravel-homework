@@ -31,5 +31,5 @@ use Illuminate\Support\Carbon;
  */
 class OrderProduct extends Model
 {
-    //
+    protected $table = 'order_product';
 }
