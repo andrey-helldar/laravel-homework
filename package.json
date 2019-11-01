@@ -9,6 +9,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/plugin-proposal-optional-chaining": "^7.6.0",
         "@mdi/font": "^4.5.95",
         "axios": "^0.19",
         "browser-sync": "^2.26.7",

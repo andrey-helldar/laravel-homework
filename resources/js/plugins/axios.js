@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Notify from './notify';
 import Lang from './lang/user';
 
 const ax = require('axios');
@@ -189,7 +188,7 @@ class AxiosService
                     this.__runIfNotEmpty(this._catch, error);
 
                     reject(_.merge(notify, {
-                        html: Notify.parse(error).message
+                        html: this.__parse(error).message
                     }));
                 })
                 .finally(() => {
@@ -212,6 +211,28 @@ class AxiosService
         this._loadedMessage = this._loadedMessage
             ? Lang.get(this._loadedMessage)
             : _.get(this._availableMessages, `${this._method}.loaded`);
+    }
+
+    __parse(message, type = 'info') {
+        try {
+            message =
+                message?.response?.data?.error?.msg ? message?.response?.data?.error?.msg
+                    : message?.data ? message?.data
+                    : message?.message ? message?.message : null;
+
+            if (_.isArray(message)) {
+                message = _.flattenDeep(message).join('<br>');
+            }
+            else if (_.isObject(message)) {
+                message = _.flatMapDeep(message).join('<br>');
+            }
+        }
+        catch (e) {
+            message = e.message;
+            type = 'error';
+        }
+
+        return {message, type};
     }
 }
 

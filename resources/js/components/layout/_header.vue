@@ -10,17 +10,23 @@
 
 <script>
     export default {
+
         computed: {
             title()
             {
-                return "foo";
-            }
-        },
+                return this.$store.getters["main/pageTitle"];
+            },
 
-        methods: {
-            lang(key)
-            {
+            drawer: {
+                get()
+                {
+                    return this.$store.getters["main/drawler"];
+                },
 
+                set(value)
+                {
+                    this.$store.commit("main/drawler", value);
+                }
             }
         }
     };
