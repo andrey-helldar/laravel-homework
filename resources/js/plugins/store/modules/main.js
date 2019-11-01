@@ -3,11 +3,11 @@ export default {
 
     state: {
         pageTitle: null,
-        drawler: null
+        drawler: true
     },
     getters: {
         pageTitle: state => {
-            return state.pageTitle;
+            return state.pageTitle ? state.pageTitle : 'Laravel';
         },
 
         drawler: state => {

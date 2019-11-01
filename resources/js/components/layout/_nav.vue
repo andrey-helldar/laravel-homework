@@ -3,22 +3,35 @@
             v-model="drawer"
             app
     >
-        <v-list dense>
-            <v-list-item @click="">
-                <v-list-item-action>
+        <weather-component/>
+
+        <v-divider/>
+
+        <v-list
+                dense
+                nav
+        >
+            <v-list-item
+                    link
+            >
+                <v-list-item-icon>
                     <v-icon>home</v-icon>
-                </v-list-item-action>
+                </v-list-item-icon>
+
                 <v-list-item-content>
-                    <v-list-item-title>Home</v-list-item-title>
+                    <v-list-item-title>products</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="">
-                <v-list-item-action>
-                    <v-icon>contact_mail</v-icon>
-                </v-list-item-action>
+            <v-list-item
+                    link
+            >
+                <v-list-item-icon>
+                    <v-icon>home</v-icon>
+                </v-list-item-icon>
+
                 <v-list-item-content>
-                    <v-list-item-title>Contact</v-list-item-title>
+                    <v-list-item-title>vendors</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -26,37 +39,18 @@
 </template>
 
 <script>
-    import axios from "../../plugins/axios";
+    import WeatherComponent from '../plugins/weather';
 
     export default {
-        data()
-        {
-            return {
-                url: "/weather",
-
-                item: {}
-            };
-        },
-
-        mounted()
-        {
-            this.get();
-        },
+        components: {WeatherComponent},
 
         computed: {
-            drawer()
-            {
-                return this.$store.getters["main/drawler"];
-            }
-        },
-
-        methods: {
-            get()
-            {
-                axios()
-                        .get(this.url)
-                        .then(response => this.item = response)
-                        .run();
+            drawer: {
+                get() {
+                    return this.$store.getters['main/drawler'];
+                },
+                set() {
+                }
             }
         }
     };

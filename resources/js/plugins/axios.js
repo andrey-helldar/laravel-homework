@@ -149,7 +149,10 @@ class AxiosService
     run() {
         this.__checkMessages();
         this.__runIfNotEmpty(this._beforeRun);
-        this.__async();
+
+        setTimeout(() => {
+            this.__async();
+        }, 1000);
     }
 
     baseURL() {

@@ -1,34 +1,51 @@
 <template>
-    <span @click="get">
-        qwe
-    </span>
+    <v-list-item>
+        <v-list-item-content>
+            <v-list-item-title class="title" v-text="item.fact.season"/>
+            <v-list-item-subtitle v-text="temp"/>
+        </v-list-item-content>
+    </v-list-item>
 </template>
 
 <script>
-    import axios from "../../plugins/axios";
+    import axios from '../../plugins/axios';
+
+    import _ from 'lodash';
 
     export default {
-        data()
-        {
+        data() {
             return {
-                url: "/weather",
+                url: '/weather',
 
-                item: {}
+                item: {
+                    fact: {
+                        season: '---',
+                        temp: '---'
+                    }
+                }
             };
         },
 
-        mounted()
-        {
+        mounted() {
             this.get();
         },
 
+        computed: {
+            temp() {
+                return this.item.fact.temp + '℃';
+            }
+        },
+
         methods: {
-            get()
-            {
+            get() {
                 axios()
-                        .get(this.url)
-                        .then(response => this.item = response)
-                        .run();
+                    .get(this.url)
+                    .then(response => {
+                        _.set(this, 'item',
+                            _.merge(this.item, response.data)
+                        );
+                    })
+                    .run();
             }
         }
     };
