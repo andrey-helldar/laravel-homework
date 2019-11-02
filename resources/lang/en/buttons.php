@@ -1,8 +1,8 @@
 <?php
 
 return array (
-  'agree' => 'I agree',
   'add' => 'Add',
+  'agree' => 'I agree',
   'all' => 'All',
   'apply' => 'Apply',
   'back' => 'Back',
