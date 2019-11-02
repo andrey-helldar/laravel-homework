@@ -247,9 +247,9 @@
                     products: {
                         headers: [
                             {text: this.trans('forms.name'), value: 'name'},
-                            {text: this.trans('forms.priceForOne'), value: 'price'},
+                            {text: this.trans('forms.cost'), value: 'price'},
                             {text: this.trans('forms.quantity'), value: 'pivot.quantity'},
-                            {text: this.trans('forms.priceForAll'), value: 'priceForAll'},
+                            {text: this.trans('forms.totalCost'), value: 'priceForAll'},
                             {text: this.trans('titles.actions'), value: 'actions'}
                         ]
                     }

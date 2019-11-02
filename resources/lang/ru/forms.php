@@ -6,6 +6,7 @@ return array (
   'city' => 'Город',
   'comment' => 'Комментарий',
   'confirmPassword' => 'Подтверждение пароля',
+  'cost' => 'Стоимость',
   'country' => 'Страна',
   'date' => 'Дата',
   'email' => 'Email',
@@ -30,6 +31,7 @@ return array (
   'priceTill' => 'Стоимость до',
   'product' => 'Продукт',
   'products' => 'Продукты',
+  'quantity' => 'Количество',
   'rememberMe' => 'Запомнить меня',
   'search' => 'Поиск',
   'slug' => 'ЧПУ',
@@ -38,5 +40,6 @@ return array (
   'street' => 'Улица',
   'theme' => 'Тема',
   'title' => 'Заголовок',
+  'totalCost' => 'Общая стоимость',
   'username' => 'Никнейм',
 );

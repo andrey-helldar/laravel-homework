@@ -6,6 +6,7 @@ return array (
   'city' => 'City',
   'comment' => 'Comment',
   'confirmPassword' => 'Confirm Password',
+  'cost' => 'Cost',
   'country' => 'Country',
   'date' => 'Date',
   'email' => 'Email',
@@ -30,6 +31,7 @@ return array (
   'priceTill' => 'Price Till',
   'product' => 'Product',
   'products' => 'Products',
+  'quantity' => 'Quantity',
   'rememberMe' => 'Remember Me',
   'search' => 'Search',
   'slug' => 'Slug',
@@ -38,5 +40,6 @@ return array (
   'street' => 'Street',
   'theme' => 'Theme',
   'title' => 'Title',
+  'totalCost' => 'Total Cost',
   'username' => 'Username',
 );
