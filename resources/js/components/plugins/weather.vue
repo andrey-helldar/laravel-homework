@@ -16,8 +16,6 @@
     import axios from '../../plugins/axios';
     import date from '../../plugins/date';
 
-    import _ from 'lodash';
-
     export default {
         data() {
             return {
@@ -44,6 +42,7 @@
 
         mounted() {
             this.get();
+            this.autoUpdate();
         },
 
         computed: {
@@ -67,12 +66,14 @@
                 axios()
                         .get(this.url.data)
                         .messages(this.statuses.loading, this.statuses.loaded)
-                        .then(response => {
-                            _.set(this, 'item',
-                                    _.merge(this.item, response.data)
-                            );
-                        })
+                        .then(response => this.item = response.data)
                         .run();
+            },
+
+            autoUpdate() {
+                setInterval(() => {
+                    this.get();
+                }, 1000 * 60 * 5);
             },
 
             trans(key) {
