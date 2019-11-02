@@ -152,34 +152,25 @@
                                     {{ moneyFormat(item.price * item.pivot.quantity) }}
                                 </template>
 
-                                <template v-slot:item.pivot.quantity="props">
-                                    <v-edit-dialog
-                                            :return-value.sync="props.item.pivot.quantity"
-                                            persistent
-                                            large
+                                <template v-slot:item.pivot.quantity="{ item }">
+                                    <v-btn
+                                            text
+                                            icon
+                                            @click="productQuantityDecrement(item)"
+                                            :disabled="item.pivot.quantity === 1"
                                     >
-                                        <v-tooltip top>
-                                            <span v-text="trans('info.changeQuantity')"/>
+                                        <icon-minus/>
+                                    </v-btn>
 
-                                            <template v-slot:activator="{ on }">
-                                                <span
-                                                        v-on="on"
-                                                        v-text="props.item.pivot.quantity"
-                                                />
-                                            </template>
-                                        </v-tooltip>
+                                    {{ item.pivot.quantity }}
 
-                                        <template v-slot:input>
-                                            <v-text-field
-                                                    v-model="props.item.pivot.quantity"
-                                                    :label="trans('forms.edit')"
-                                                    type="number"
-                                                    single-line
-                                                    required
-                                                    @change="changed"
-                                            />
-                                        </template>
-                                    </v-edit-dialog>
+                                    <v-btn
+                                            text
+                                            icon
+                                            @click="productQuantityIncrement(item)"
+                                    >
+                                        <icon-plus/>
+                                    </v-btn>
                                 </template>
 
                                 <template v-slot:item.actions="{ item }">
@@ -217,6 +208,8 @@
 <script type="text/javascript">
     import ErrorsComponent from '../../plugins/_errors';
     import IconDelete from '../../plugins/icons/_delete';
+    import IconPlus from '../../plugins/icons/_plus';
+    import IconMinus from '../../plugins/icons/_minus';
 
     import axios from '../../../plugins/axios';
     import Lang from '../../../plugins/lang';
@@ -225,7 +218,7 @@
     import _ from 'lodash';
 
     export default {
-        components: {ErrorsComponent, IconDelete},
+        components: {ErrorsComponent, IconDelete, IconPlus, IconMinus},
 
         data() {
             return {
@@ -473,6 +466,28 @@
                 this.form.products.splice(_index, 1);
 
                 this.changed();
+            },
+
+            productQuantityIncrement(item) {
+                let _quantity = _.isNumber(item?.pivot?.quantity)
+                        ? item?.pivot?.quantity
+                        : parseInt(item?.pivot?.quantity);
+
+                let _index = this.form.products.indexOf(item);
+
+                _.set(this, `form.products[${_index}].pivot.quantity`, _quantity + 1);
+            },
+
+            productQuantityDecrement(item) {
+                let _quantity = _.isNumber(item?.pivot?.quantity)
+                        ? item?.pivot?.quantity
+                        : parseInt(item?.pivot?.quantity);
+
+                let _index = this.form.products.indexOf(item);
+
+                _quantity = _quantity - 1 < 1 ? 1 : _quantity - 1;
+
+                _.set(this, `form.products[${_index}].pivot.quantity`, _quantity);
             }
         }
     };
@@ -481,5 +496,9 @@
 <style scoped>
     h1 {
         margin-bottom: 20px;
+    }
+
+    .cursor--pointer {
+        cursor: pointer;
     }
 </style>
