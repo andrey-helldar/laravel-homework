@@ -31,8 +31,6 @@ mix
         }
     })
 
-    .sass(assets + 'sass/app.scss', 'public/css')
-
     .js(assets + 'js/app.js', 'public/js')
     .extract()
 
