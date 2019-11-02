@@ -495,8 +495,4 @@
     h1 {
         margin-bottom: 20px;
     }
-
-    .cursor--pointer {
-        cursor: pointer;
-    }
 </style>
