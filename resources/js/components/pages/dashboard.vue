@@ -1,20 +1,12 @@
 <template>
-    <div v-cloak>
-        <h3>{{ msg }}</h3>
-    </div>
+    <v-layout justify-center align-center fill-height>
+        <img src="../../../images/robot.png" alt="happy robot">
+    </v-layout>
 </template>
-<script type="text/javascript">
-    export default {
-        data() {
-            return {
-                msg: 'hello vue'
-            };
-        },
-        mounted() {
-            //
-        },
-        methods: {
-            //
-        }
-    };
-</script>
+
+<style scoped>
+    img {
+        max-height: 50vh;
+        max-width: 30vw;
+    }
+</style>

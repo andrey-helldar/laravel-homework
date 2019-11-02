@@ -1,6 +1,6 @@
 <template>
     <v-content>
-        <v-layout justify-center>
+        <v-layout justify-center fill-height>
             <v-container>
                 <transition-view-component/>
             </v-container>
