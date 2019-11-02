@@ -1,11 +1,10 @@
 <template>
     <v-content>
-        <v-container
-                fill-height
-                fluid
-        >
-            <transition-view-component/>
-        </v-container>
+        <v-layout justify-center>
+            <v-container>
+                <transition-view-component/>
+            </v-container>
+        </v-layout>
     </v-content>
 </template>
 

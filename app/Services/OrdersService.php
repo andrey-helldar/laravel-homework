@@ -21,7 +21,7 @@ class OrdersService
 
     public function show(Order $order): Order
     {
-        return $order->load('orderProducts');
+        return $order->load('products');
     }
 
     public function update(Request $request, Order $order): bool

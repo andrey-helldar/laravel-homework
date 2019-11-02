@@ -1,80 +1,133 @@
 <template>
-    <v-layout justify-center>
+    <v-container>
         <form :novalidate="false" @submit.prevent="update">
-            <v-layout align-center row wrap>
-                <v-flex s12 md12 v-if="pageTitle">
-                    <h1 v-text="pageTitle"/>
-                </v-flex>
-
+            <v-layout align-start row wrap>
                 <v-flex v-if="errors" xs12 md12>
-                    <errors-component :errors="errors"/>
+                    <v-container>
+                        <errors-component :errors="errors"/>
+                    </v-container>
                 </v-flex>
 
                 <v-flex xs12 md6>
-                    <v-text-field
-                            v-model="form.client_email"
-                            :label="trans('forms.email')"
-                            type="email"
-                            maxlength="255"
-                            counter
-                            required
-                            @change="changed"
-                    />
+                    <v-container>
+                        <v-layout align-center row wrap>
+                            <v-flex xs12 md6>
+                                <v-text-field
+                                        v-model="form.client_email"
+                                        :label="trans('forms.email')"
+                                        type="email"
+                                        maxlength="255"
+                                        counter
+                                        required
+                                        @change="changed"
+                                />
+                            </v-flex>
+
+                            <v-flex xs12 md6>
+                                <v-select
+                                        v-model="form.status"
+                                        :items="statuses"
+                                        :label="trans('forms.status')"
+                                        item-text="value"
+                                        item-value="code"
+                                        required
+                                        @change="changed"
+                                />
+                            </v-flex>
+
+                            <v-flex xs12 md12>
+                                <v-select
+                                        v-model="form.partner_id"
+                                        :items="partners"
+                                        :label="trans('forms.partner')"
+                                        item-text="name"
+                                        item-value="id"
+                                        required
+                                        @change="changed"
+                                />
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
                 </v-flex>
 
                 <v-flex xs12 md6>
-                    <v-select
-                            v-model="form.status"
-                            :items="statuses"
-                            :label="trans('forms.status')"
-                            item-text="value"
-                            item-value="code"
-                            required
-                            @change="changed"
-                    />
-                </v-flex>
+                    <v-container>
+                        <v-card>
+                            <v-card-title>
+                                {{ selectedProductsSum }}
 
-                <v-flex xs12 md12>
-                    <v-select
-                            v-model="form.partner_id"
-                            :items="partners"
-                            :label="trans('forms.partner')"
-                            item-text="name"
-                            item-value="id"
-                            required
-                            @change="changed"
-                    />
-                </v-flex>
+                                <v-spacer/>
 
-                <v-flex xs12 md12>
-                    <v-data-table
-                            :headers="tables.products.headers"
-                            :items="form.order_products"
-                    >
+                                <v-text-field
+                                        v-model="search"
+                                        :label="trans('forms.search')"
+                                        append-icon="search"
+                                        single-line
+                                        hide-details
+                                />
+                            </v-card-title>
+                            <v-data-table
+                                    :headers="tables.products.headers"
+                                    :items="form.products"
+                                    :search="search"
+                            >
+                                <template v-slot:item.price="{ item }">
+                                    {{ moneyFormat(item.price) }}
+                                </template>
 
-                    </v-data-table>
+                                <template v-slot:item.priceForAll="{ item }">
+                                    {{ moneyFormat(item.price * item.pivot.quantity) }}
+                                </template>
+
+                                <template v-slot:item.pivot.quantity="props">
+                                    <v-edit-dialog
+                                            :return-value.sync="props.item.pivot.quantity"
+                                            persistent
+                                            large
+                                    >
+                                        {{ props.item.pivot.quantity }}
+
+                                        <template v-slot:input>
+                                            <v-text-field
+                                                    v-model="props.item.pivot.quantity"
+                                                    :label="trans('forms.edit')"
+                                                    type="numeric"
+                                                    single-line
+                                                    required
+                                                    @change="changed"
+                                            />
+                                        </template>
+                                    </v-edit-dialog>
+                                </template>
+
+                            </v-data-table>
+                        </v-card>
+                    </v-container>
                 </v-flex>
 
                 <v-flex xs12 class="text-center">
-                    <v-btn
-                            :disabled="progress || !isChanged"
-                            :loading="progress"
-                            type="submit"
-                            color="deep-purple white--text"
-                    >
-                        <v-icon left>save</v-icon>
-                        <span v-text="trans('buttons.update')"/>
-                    </v-btn>
+                    <v-container>
+                        <v-btn
+                                :disabled="progress || !isChanged"
+                                :loading="progress"
+                                type="submit"
+                                color="deep-purple white--text"
+                        >
+                            <v-icon left>save</v-icon>
+                            <span v-text="trans('buttons.update')"/>
+                        </v-btn>
+                    </v-container>
                 </v-flex>
             </v-layout>
         </form>
-    </v-layout>
+    </v-container>
 </template>
 <script type="text/javascript">
     import ErrorsComponent from '../../plugins/_errors';
 
     import axios from '../../../plugins/axios';
     import Lang from '../../../plugins/lang';
+    import math from '../../../plugins/math';
 
     import _ from 'lodash';
 
@@ -111,12 +164,15 @@
                     products: {
                         headers: [
                             {text: this.trans('forms.name'), value: 'name'},
-                            {text: this.trans('forms.price'), value: 'price'}
+                            {text: this.trans('forms.priceForOne'), value: 'price'},
+                            {text: this.trans('forms.quantity'), value: 'pivot.quantity'},
+                            {text: this.trans('forms.priceForAll'), value: 'priceForAll'}
                         ]
                     }
                 },
 
                 errors: {},
+                search: null,
 
                 progress: false,
                 isChanged: false
@@ -141,12 +197,20 @@
         },
 
         computed: {
-            pageTitle: {
-                get() {
-                    return this.$store.getters['main/pageTitle'];
-                },
-                set() {
-                }
+            selectedProductsSum() {
+                let _products = this.form?.products
+                        ? this.form?.products
+                        : [];
+
+                let _sum = _.sumBy(_products, product => {
+                    return product?.price * product?.pivot?.quantity;
+                });
+
+                let _locale = this.trans('orders.locale');
+                let value = this.moneyFormat(_sum, _locale);
+                let symbol = this.trans('orders.symbol');
+
+                return this.trans('info.total', {value, symbol});
             }
         },
 
@@ -156,6 +220,7 @@
 
                 axios()
                         .get(url)
+                        .messages('statuses.loadingOrder', 'statuses.loadedOrder')
                         .then(response => this.form = response.data)
                         .run();
             },
@@ -165,6 +230,7 @@
 
                 axios()
                         .get(url)
+                        .messages('statuses.loadingPartners', 'statuses.loadedPartners')
                         .then(response => this.partners = response.data)
                         .run();
             },
@@ -174,6 +240,7 @@
 
                 axios()
                         .get(url)
+                        .messages('statuses.loadingProducts', 'statuses.loadedProducts')
                         .then(response => this.products = response.data)
                         .run();
             },
@@ -198,6 +265,10 @@
 
             trans(key, replacements = {}) {
                 return Lang.get(key, replacements);
+            },
+
+            moneyFormat(value) {
+                return math.moneyFormat(value, this.trans('orders.locale'));
             }
         }
     };

@@ -1,15 +1,11 @@
 <template>
-    <v-layout justify-center>
-
-        <table-component
-                :actions="table.actions"
-                :edit-route-name="table.editRouteName"
-                :headers="table.headers"
-                :messages="table.messages"
-                :url="url"
-        />
-
-    </v-layout>
+    <table-component
+            :actions="table.actions"
+            :edit-route-name="table.editRouteName"
+            :headers="table.headers"
+            :messages="table.messages"
+            :url="url"
+    />
 </template>
 <script type="text/javascript">
     import TableComponent from '../../plugins/_table';

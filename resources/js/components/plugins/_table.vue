@@ -6,7 +6,6 @@
             :search="search"
             item-key="title"
             calculate-widths
-            class="full-width"
     >
         <template v-slot:top>
             <v-toolbar flat>
@@ -161,22 +160,22 @@
         methods: {
             get() {
                 axios()
-                    .get(this.fixUrl())
-                    .messages(this.messages?.loading, this.messages?.loaded)
-                    .then(response => this.items = response.data)
-                    .run();
+                        .get(this.fixUrl())
+                        .messages(this.messages?.loading, this.messages?.loaded)
+                        .then(response => this.items = response.data)
+                        .run();
             },
 
             destroy(id) {
                 console.log(this.fixUrl(id));
                 axios()
-                    .delete(this.fixUrl(id))
-                    .messages(this.messages?.deleting, this.messages?.deleted)
-                    .then(() => {
-                        this.closeDialog(id);
-                        this.get();
-                    })
-                    .run();
+                        .delete(this.fixUrl(id))
+                        .messages(this.messages?.deleting, this.messages?.deleted)
+                        .then(() => {
+                            this.closeDialog(id);
+                            this.get();
+                        })
+                        .run();
             },
 
             closeDialog(id) {
@@ -211,22 +210,18 @@
 
             fixUrl(id = null) {
                 let _url = _.endsWith(this.url, '/')
-                    ? this.url
-                    : this.url + '/';
+                        ? this.url
+                        : this.url + '/';
 
                 return _.isNull(id)
-                    ? _url
-                    : _url + id;
+                        ? _url
+                        : _url + id;
             }
         }
     };
 </script>
 
 <style lang="scss" scoped>
-    .full-width {
-        width: 100%;
-    }
-
     .products {
         margin-bottom: 0;
     }
