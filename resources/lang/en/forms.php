@@ -28,6 +28,7 @@ return array (
   'price' => 'Price',
   'priceFrom' => 'Price From',
   'priceTill' => 'Price Till',
+  'product' => 'Product',
   'products' => 'Products',
   'rememberMe' => 'Remember Me',
   'search' => 'Search',

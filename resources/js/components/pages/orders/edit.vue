@@ -54,10 +54,6 @@
                     <v-container>
                         <v-card>
                             <v-card-title>
-                                {{ selectedProductsSum }}
-
-                                <v-spacer/>
-
                                 <v-text-field
                                         v-model="search"
                                         :label="trans('forms.search')"
@@ -65,6 +61,77 @@
                                         single-line
                                         hide-details
                                 />
+
+                                <v-spacer/>
+
+                                {{ selectedProductsSum }}
+
+                                <v-spacer/>
+
+                                <v-dialog
+                                        v-model="dialog.product"
+                                        max-width="500px"
+                                >
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                                v-on="on"
+                                                color="deep-purple"
+                                                text
+                                                icon
+                                        >
+                                            <v-icon>add</v-icon>
+                                        </v-btn>
+                                    </template>
+
+                                    <v-card>
+                                        <v-card-title>
+                                            <span class="headline" v-text="trans('info.addProduct')"/>
+                                        </v-card-title>
+
+                                        <v-card-text>
+                                            <v-row>
+                                                <v-col cols="8">
+                                                    <v-select
+                                                            v-model="addItem.product.id"
+                                                            :items="sortableProducts"
+                                                            :label="trans('forms.product')"
+                                                            item-text="name"
+                                                            item-value="id"
+                                                            required
+                                                    >
+                                                        <template v-slot:item="{ item }">
+                                                            {{ item.name }}
+
+                                                            <v-spacer/>
+
+                                                            <span class="deep-purple--text text--lighten-4" v-text="moneyFormat(item.price)"/>
+                                                            <span class="deep-purple--text text--lighten-4" v-text="trans('orders.symbol')"/>
+                                                        </template>
+                                                    </v-select>
+                                                </v-col>
+
+                                                <v-col cols="4">
+                                                    <v-text-field
+                                                            v-model="itemProductQuantity"
+                                                            :label="trans('forms.quantity')"
+                                                            type="number"
+                                                            min="1"
+                                                            required
+                                                    />
+                                                </v-col>
+                                            </v-row>
+                                        </v-card-text>
+
+                                        <v-card-actions>
+                                            <span class="green--text" v-text="`+${moneyFormat(addProductSum)} ${trans('orders.symbol')}`"/>
+
+                                            <v-spacer/>
+
+                                            <v-btn color="deep-purple darken-1" @click="closeDialog('product')" text v-text="trans('buttons.cancel')"/>
+                                            <v-btn color="deep-purple darken-1" @click="addProduct" text v-text="trans('buttons.add')"/>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
                             </v-card-title>
                             <v-data-table
                                     :headers="tables.products.headers"
@@ -73,6 +140,10 @@
                                     :loading-text="trans('statuses.loadingProducts')"
                                     :loading="isLoadingProducts"
                             >
+                                <template v-slot:no-data>
+                                    {{ trans('statuses.noData') }}
+                                </template>
+
                                 <template v-slot:item.price="{ item }">
                                     {{ moneyFormat(item.price) }}
                                 </template>
@@ -87,19 +158,38 @@
                                             persistent
                                             large
                                     >
-                                        {{ props.item.pivot.quantity }}
+                                        <v-tooltip top>
+                                            <span v-text="trans('info.changeQuantity')"/>
+
+                                            <template v-slot:activator="{ on }">
+                                                <span
+                                                        v-on="on"
+                                                        v-text="props.item.pivot.quantity"
+                                                />
+                                            </template>
+                                        </v-tooltip>
 
                                         <template v-slot:input>
                                             <v-text-field
                                                     v-model="props.item.pivot.quantity"
                                                     :label="trans('forms.edit')"
-                                                    type="numeric"
+                                                    type="number"
                                                     single-line
                                                     required
                                                     @change="changed"
                                             />
                                         </template>
                                     </v-edit-dialog>
+                                </template>
+
+                                <template v-slot:item.actions="{ item }">
+                                    <v-btn
+                                            text
+                                            icon
+                                            @click="deleteProduct(item)"
+                                    >
+                                        <icon-delete/>
+                                    </v-btn>
                                 </template>
 
                             </v-data-table>
@@ -126,6 +216,7 @@
 </template>
 <script type="text/javascript">
     import ErrorsComponent from '../../plugins/_errors';
+    import IconDelete from '../../plugins/icons/_delete';
 
     import axios from '../../../plugins/axios';
     import Lang from '../../../plugins/lang';
@@ -134,7 +225,7 @@
     import _ from 'lodash';
 
     export default {
-        components: {ErrorsComponent},
+        components: {ErrorsComponent, IconDelete},
 
         data() {
             return {
@@ -168,8 +259,21 @@
                             {text: this.trans('forms.name'), value: 'name'},
                             {text: this.trans('forms.priceForOne'), value: 'price'},
                             {text: this.trans('forms.quantity'), value: 'pivot.quantity'},
-                            {text: this.trans('forms.priceForAll'), value: 'priceForAll'}
+                            {text: this.trans('forms.priceForAll'), value: 'priceForAll'},
+                            {text: this.trans('titles.actions'), value: 'actions'}
                         ]
+                    }
+                },
+
+                dialog: {
+                    product: false
+                },
+
+                addItem: {
+                    product: {
+                        id: null,
+                        quantity: 1,
+                        item: {}
                     }
                 },
 
@@ -214,6 +318,35 @@
                 let symbol = this.trans('orders.symbol');
 
                 return this.trans('info.total', {value, symbol});
+            },
+
+            sortableProducts() {
+                return _.sortBy(this.products, product => {
+                    return product.name;
+                });
+            },
+
+            addProductSum() {
+                let _id = this.addItem?.product?.id;
+                let _quantity = this.addItem.product.quantity;
+
+                let _product = this.getProductById(_id);
+
+                let _price = _product?.price
+                        ? _product?.price
+                        : 0;
+
+                return _price * _quantity;
+            },
+
+            itemProductQuantity: {
+                get() {
+                    return this.addItem.product.quantity;
+                },
+
+                set(value) {
+                    this.addItem.product.quantity = parseInt(value);
+                }
             }
         },
 
@@ -252,10 +385,19 @@
             },
 
             update() {
-                this.progress = true;
+                axios()
+                        .put(this.getUrl(this.url.order), this.form)
+                        .beforeRun(() => {
+                            this.progress = true;
+                        })
+                        .finally(() => {
+                            this.progress = false;
+                            this.isChanged = false;
+                        })
+                        .run();
             },
 
-            getUrl(url, id = null) {
+            getUrl(url) {
                 let _params = this.$route.params;
 
                 _.each(_params, (value, key) => {
@@ -275,6 +417,62 @@
 
             moneyFormat(value) {
                 return math.moneyFormat(value, this.trans('orders.locale'));
+            },
+
+            closeDialog(key) {
+                _.set(this.dialog, key, false);
+            },
+
+            addProduct() {
+                let _productId = this.addItem?.product?.id
+                        ? this.addItem?.product?.id
+                        : null;
+
+                let _quantity = this.addItem?.product?.quantity
+                        ? this.addItem?.product?.quantity
+                        : null;
+
+                let _product = this.getProductById(_productId);
+
+                let _pivot = {
+                    price: _product?.price,
+                    quantity: _quantity
+                };
+
+                _.set(_product, 'pivot', _pivot);
+
+                let _formProduct = this.getProductById(_productId, this.form.products);
+
+                if (_.isUndefined(_formProduct)) {
+                    this.form.products.push(_product);
+                } else {
+                    let _index = this.form.products.indexOf(_formProduct);
+
+                    _quantity += _formProduct.pivot.quantity;
+
+                    _.set(this, `form.products[${_index}].pivot.quantity`, _quantity);
+                }
+
+                this.closeDialog('product');
+                this.changed();
+            },
+
+            getProductById(id, items = null) {
+                items = _.isNull(items)
+                        ? this.products
+                        : items;
+
+                return _.find(items, product => {
+                    return product.id === id;
+                });
+            },
+
+            deleteProduct(item) {
+                let _index = this.form.products.indexOf(item);
+
+                this.form.products.splice(_index, 1);
+
+                this.changed();
             }
         }
     };

@@ -28,6 +28,7 @@ return array (
   'price' => 'Стоимость',
   'priceFrom' => 'Стоимость от',
   'priceTill' => 'Стоимость до',
+  'product' => 'Продукт',
   'products' => 'Продукты',
   'rememberMe' => 'Запомнить меня',
   'search' => 'Поиск',

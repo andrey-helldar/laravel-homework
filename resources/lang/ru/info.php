@@ -6,4 +6,8 @@ return [
     ],
 
     'total' => 'Итого: :value :symbol',
+
+    'addProduct' => 'Добавить продукт',
+
+    'changeQuantity' => 'Изменить количество',
 ];

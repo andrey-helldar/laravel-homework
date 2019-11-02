@@ -6,4 +6,8 @@ return [
     ],
 
     'total' => 'Total: :value :symbol',
+
+    'addProduct' => 'Add product',
+
+    'changeQuantity' => 'Change quantity',
 ];

@@ -2,6 +2,7 @@
 
 return array (
   'agree' => 'I agree',
+  'add' => 'Add',
   'all' => 'All',
   'apply' => 'Apply',
   'back' => 'Back',
