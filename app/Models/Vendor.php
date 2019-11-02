@@ -31,6 +31,8 @@ use Illuminate\Support\Carbon;
  */
 class Vendor extends Model
 {
+    protected $fillable = ['email', 'name'];
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

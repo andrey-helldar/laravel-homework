@@ -29,4 +29,5 @@ use Illuminate\Support\Carbon;
  */
 class Product extends Model
 {
+    protected $fillable = ['name', 'price', 'vendor_id'];
 }

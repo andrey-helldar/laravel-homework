@@ -1,17 +1,21 @@
 <template>
     <v-alert
             type="error"
-            v-if="parsed.length"
+            v-if="parsed"
             v-html="parsed"
     />
 </template>
 <script type="text/javascript">
+    import axios from '../../plugins/axios';
+
     export default {
         props: ['errors'],
 
         computed: {
             parsed() {
-                return [];
+                let _parsed = axios().__parse(this.errors);
+
+                return _parsed?.message;
             }
         }
     };

@@ -387,7 +387,9 @@
                         .put(this.getUrl(this.url.order), this.form)
                         .beforeRun(() => {
                             this.progress = true;
+                            this.errors = {};
                         })
+                        .catch(errors => this.errors = errors)
                         .finally(() => {
                             this.progress = false;
                             this.isChanged = false;

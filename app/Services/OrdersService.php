@@ -2,20 +2,44 @@
 
 namespace App\Services;
 
+use App\Http\Requests\Api\OrderRequest;
 use App\Models\Order;
+use Helldar\Support\Laravel\Models\ModelHelper;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+
+use function compact;
 
 class OrdersService
 {
+    private $model;
+
+    public function __construct(ModelHelper $model)
+    {
+        $this->model = $model;
+    }
+
     public function index(): ?Collection
     {
         return Order::get()
             ->load('partner', 'products');
     }
 
-    public function store(Request $request): bool
+    /**
+     * @param OrderRequest $request
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return bool
+     */
+    public function store(OrderRequest $request): bool
     {
+        $order = Order::create(
+            $this->model->onlyFillable(Order::class, $request)
+        );
+
+        $this->attachProduct($request, $order);
+
         return true;
     }
 
@@ -24,13 +48,58 @@ class OrdersService
         return $order->load('products');
     }
 
-    public function update(Request $request, Order $order): bool
+    /**
+     * @param OrderRequest $request
+     * @param Order $order
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return bool
+     */
+    public function update(OrderRequest $request, Order $order): bool
     {
+        $order->update(
+            $this->model->onlyFillable($order, $request)
+        );
+
+        $this->deleteProducts($request, $order);
+        $this->attachProduct($request, $order);
+
         return true;
     }
 
+    /**
+     * @param Order $order
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
     public function destroy(Order $order): bool
     {
-        return true;
+        return $order->delete();
+    }
+
+    private function deleteProducts(OrderRequest $request, Order $order): void
+    {
+        $products = $request->get('products');
+        $ids      = Arr::pluck($products, 'id');
+
+        $order->products()->sync($ids);
+    }
+
+    private function attachProduct(OrderRequest $request, Order $order): void
+    {
+        foreach ($request->get('products') as $product) {
+            $product_id = Arr::get($product, 'id');
+            $price      = Arr::get($product, 'price');
+            $quantity   = Arr::get($product, 'pivot.quantity');
+            $created_at = $order->created_at;
+
+            $order->pivotProduct()->updateOrCreate(
+                compact('product_id'),
+                compact('price', 'quantity', 'created_at')
+            );
+        }
     }
 }

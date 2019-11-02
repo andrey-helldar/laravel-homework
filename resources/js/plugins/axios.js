@@ -225,10 +225,12 @@ class AxiosService
 
     __parse(message, type = 'info') {
         try {
+            console.info('111', message?.response?.data);
             message =
                 message?.response?.data?.error?.msg ? message?.response?.data?.error?.msg
+                    : message?.response?.data?.errors ? message?.response?.data?.errors
                     : message?.data ? message?.data
-                    : message?.message ? message?.message : null;
+                        : message?.message ? message?.message : null;
 
             if (_.isArray(message)) {
                 message = _.flattenDeep(message).join('<br>');

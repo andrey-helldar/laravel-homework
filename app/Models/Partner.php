@@ -31,6 +31,8 @@ use Illuminate\Support\Carbon;
  */
 class Partner extends Model
 {
+    protected $fillable = ['email', 'name'];
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

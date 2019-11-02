@@ -32,4 +32,6 @@ use Illuminate\Support\Carbon;
 class OrderProduct extends Model
 {
     protected $table = 'order_product';
+
+    protected $fillable = ['product_id', 'quantity', 'price', 'created_at', 'updated_at'];
 }
