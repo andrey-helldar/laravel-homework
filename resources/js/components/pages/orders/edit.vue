@@ -19,7 +19,6 @@
                                         maxlength="255"
                                         counter
                                         required
-                                        @change="changed"
                                 />
                             </v-flex>
 
@@ -31,7 +30,6 @@
                                         item-text="value"
                                         item-value="code"
                                         required
-                                        @change="changed"
                                 />
                             </v-flex>
 
@@ -43,7 +41,6 @@
                                         item-text="name"
                                         item-value="id"
                                         required
-                                        @change="changed"
                                 />
                             </v-flex>
                         </v-layout>
@@ -293,6 +290,13 @@
 
                     this.$store.commit('main/pageTitle', _title);
                 }
+            },
+
+            'form': {
+                deep: true,
+                handler(value) {
+                    this.isChanged = true;
+                }
             }
         },
 
@@ -351,6 +355,7 @@
                         .get(url)
                         .messages('statuses.loadingOrder', 'statuses.loadedOrder')
                         .then(response => this.form = response.data)
+                        .finally(() => this.isChanged = false)
                         .run();
             },
 
@@ -400,10 +405,6 @@
                 return url;
             },
 
-            changed() {
-                this.isChanged = true;
-            },
-
             trans(key, replacements = {}) {
                 return Lang.get(key, replacements);
             },
@@ -447,7 +448,6 @@
                 }
 
                 this.closeDialog('product');
-                this.changed();
             },
 
             getProductById(id, items = null) {
@@ -464,8 +464,6 @@
                 let _index = this.form.products.indexOf(item);
 
                 this.form.products.splice(_index, 1);
-
-                this.changed();
             },
 
             productQuantityIncrement(item) {
