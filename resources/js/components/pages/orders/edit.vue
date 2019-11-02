@@ -70,6 +70,8 @@
                                     :headers="tables.products.headers"
                                     :items="form.products"
                                     :search="search"
+                                    :loading-text="trans('statuses.loadingProducts')"
+                                    :loading="isLoadingProducts"
                             >
                                 <template v-slot:item.price="{ item }">
                                     {{ moneyFormat(item.price) }}
@@ -175,7 +177,8 @@
                 search: null,
 
                 progress: false,
-                isChanged: false
+                isChanged: false,
+                isLoadingProducts: true
             };
         },
 
@@ -241,7 +244,10 @@
                 axios()
                         .get(url)
                         .messages('statuses.loadingProducts', 'statuses.loadedProducts')
-                        .then(response => this.products = response.data)
+                        .then(response => {
+                            this.products = response.data;
+                            this.isLoadingProducts = false;
+                        })
                         .run();
             },
 
