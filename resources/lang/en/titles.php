@@ -14,6 +14,8 @@ return array (
   'new' => 'New',
   'orders' => 'Orders',
   'pastDue' => 'Past Due',
+  'quantity' => 'Quantity',
+  'title' => 'Title',
   'trash' => 'Trash',
   'trashed' => 'Trashed',
 );

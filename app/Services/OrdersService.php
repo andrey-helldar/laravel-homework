@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Http\Requests\Api\OrderRequest;
+use App\Mail\CompletedOrderMail;
 use App\Models\Order;
 use Helldar\Support\Laravel\Models\ModelHelper;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 
 use function compact;
 
@@ -64,6 +66,7 @@ class OrdersService
 
         $this->deleteProducts($request, $order);
         $this->attachProduct($request, $order);
+        $this->sendEmail($order);
 
         return true;
     }
@@ -100,6 +103,15 @@ class OrdersService
                 compact('product_id'),
                 compact('price', 'quantity', 'created_at')
             );
+        }
+    }
+
+    private function sendEmail(Order $order)
+    {
+        if ($order->status === 20) {
+            $mail = new CompletedOrderMail($order);
+
+            Mail::send($mail);
         }
     }
 }
