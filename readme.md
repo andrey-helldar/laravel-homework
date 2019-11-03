@@ -9,13 +9,14 @@
 
 Установите зависимости:
 ```
-composer install --no-dev --optimize-autoloader --no-suggest
-yarn install
+$ composer install --no-dev --optimize-autoloader --no-suggest
+$ php artisan migrate:fresh --seed
+$ yarn install
 ```
 
 Скомпилируйте зависимости для фронта:
 ```
-yarn prod
+$ yarn prod
 ```
 
 Теперь либо запустите докер-окружение (преднастройки для развертки есть в этом репозитории, либо запустите команду `php artisan serve`).
