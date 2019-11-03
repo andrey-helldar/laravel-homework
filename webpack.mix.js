@@ -1,6 +1,4 @@
 const mix = require('laravel-mix');
-const path = require('path');
-const glob = require('glob-all');
 
 const assets = './resources/';
 
@@ -13,21 +11,6 @@ mix
                     loader: 'laravel-localization-loader'
                 }
             ]
-        }
-    })
-
-    .options({
-        purifyCss: {
-            moduleExtensions: ['php', 'vue', 'js'],
-            paths: glob.sync([
-                path.join(__dirname, 'resources/**/*.blade.php'),
-                path.join(__dirname, 'resources/**/*.vue'),
-                path.join(__dirname, 'resources/**/*.js')
-            ]),
-            purifyOptions: {
-                whitelist: [],
-                rejected: true
-            }
         }
     })
 
