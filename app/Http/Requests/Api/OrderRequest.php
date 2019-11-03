@@ -47,7 +47,7 @@ class OrderRequest extends FormRequest
             'status'      => trans('forms.status'),
             'products'    => trans('forms.products'),
             'partner_id'  => trans('forms.partner'),
-            'delivery_at' => trans('statuses.deliveryAt'),
+            'delivery_at' => trans('forms.deliveryAt'),
         ];
     }
 
