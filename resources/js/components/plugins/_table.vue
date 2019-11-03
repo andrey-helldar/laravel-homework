@@ -136,14 +136,12 @@
     import _ from 'lodash';
 
     export default {
-        props: ['headers', 'url', 'edit-route-name', 'actions', 'messages'],
+        props: ['headers', 'items', 'url', 'edit-route-name', 'actions', 'messages'],
 
         components: {IconDelete, IconEdit, StatusChipNew, StatusChipAccepted, StatusChipFinished},
 
         data() {
             return {
-                items: [],
-
                 rowsPerPageItems: [
                     10, 25, 50,
                     {'text': this.trans('buttons.rowsPerPage'), 'value': -1}
@@ -154,28 +152,16 @@
                 dialogs: {}
             };
         },
-        beforeMount() {
-            this.get();
-        },
         methods: {
-            get() {
-                axios()
-                        .get(this.fixUrl())
-                        .messages(this.messages?.loading, this.messages?.loaded)
-                        .then(response => this.items = response.data)
-                        .run();
-            },
-
             destroy(id) {
-                console.log(this.fixUrl(id));
                 axios()
-                        .delete(this.fixUrl(id))
-                        .messages(this.messages?.deleting, this.messages?.deleted)
-                        .then(() => {
-                            this.closeDialog(id);
-                            this.get();
-                        })
-                        .run();
+                    .delete(this.fixUrl(id))
+                    .messages(this.messages?.deleting, this.messages?.deleted)
+                    .then(() => {
+                        this.closeDialog(id);
+                        this.get();
+                    })
+                    .run();
             },
 
             closeDialog(id) {
@@ -210,12 +196,12 @@
 
             fixUrl(id = null) {
                 let _url = _.endsWith(this.url, '/')
-                        ? this.url
-                        : this.url + '/';
+                    ? this.url
+                    : this.url + '/';
 
                 return _.isNull(id)
-                        ? _url
-                        : _url + id;
+                    ? _url
+                    : _url + id;
             }
         }
     };
