@@ -43,6 +43,23 @@
                                         required
                                 />
                             </v-flex>
+
+                            <v-flex xs12 md6>
+                                <v-date-picker
+                                        v-model="deliveryAtDate"
+                                        :min="minDate()"
+                                        first-day-of-week="1"
+                                        full-width
+                                />
+                            </v-flex>
+
+                            <v-flex xs12 md6>
+                                <v-time-picker
+                                        v-model="deliveryAtTime"
+                                        format="24hr"
+                                        full-width
+                                />
+                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-flex>
@@ -211,6 +228,7 @@
     import axios from '../../../plugins/axios';
     import Lang from '../../../plugins/lang';
     import math from '../../../plugins/math';
+    import date from '../../../plugins/date';
 
     import _ from 'lodash';
 
@@ -343,6 +361,48 @@
 
                 set(value) {
                     this.addItem.product.quantity = parseInt(value);
+                }
+            },
+
+            deliveryAtDate: {
+                get() {
+                    let _model = this.form?.delivery_at
+                            ? this.form?.delivery_at
+                            : null;
+
+                    return date.getDate(_model);
+                },
+
+                set(value) {
+                    let _model = this.form?.delivery_at
+                            ? this.form?.delivery_at
+                            : date.get();
+
+                    let _arr = _model.split(' ');
+                    let _time = _.last(_arr);
+
+                    this.form.delivery_at = `${value} ${_time}`;
+                }
+            },
+
+            deliveryAtTime: {
+                get() {
+                    let _model = this.form?.delivery_at
+                            ? this.form?.delivery_at
+                            : null;
+
+                    return date.getTime(_model);
+                },
+
+                set(value) {
+                    let _model = this.form?.delivery_at
+                            ? this.form?.delivery_at
+                            : date.get();
+
+                    let _arr = _model.split(' ');
+                    let _date = _.first(_arr);
+
+                    this.form.delivery_at = `${_date} ${value}`;
                 }
             }
         },
@@ -488,13 +548,25 @@
                 _quantity = _quantity - 1 < 1 ? 1 : _quantity - 1;
 
                 _.set(this, `form.products[${_index}].pivot.quantity`, _quantity);
+            },
+
+            minDate() {
+                return new Date().toISOString().substr(0, 10);
             }
         }
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     h1 {
         margin-bottom: 20px;
+    }
+
+    .v-picker--time {
+        margin: 0 0 0 10px;
+
+        @media only screen and (max-width: 600px) {
+            margin: 0;
+        }
     }
 </style>

@@ -26,7 +26,7 @@
                         {text: this.trans('forms.partner'), value: 'partner.name'},
                         {text: this.trans('forms.price'), value: 'price'},
                         {text: this.trans('forms.products'), value: 'products'},
-                        {text: this.trans('statuses.deliveryAt'), value: 'delivery_at'},
+                        {text: this.trans('forms.deliveryAt'), value: 'delivery_at'},
                         {text: this.trans('statuses.createdAt'), value: 'created_at'},
                         {text: this.trans('statuses.updatedAt'), value: 'updated_at'},
                         {text: this.trans('titles.actions'), value: 'actions'}

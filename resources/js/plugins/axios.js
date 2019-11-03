@@ -26,7 +26,7 @@ class AxiosService
 
     _availableMessages = {
         'GET': {loading: 'statuses.loading', loaded: 'statuses.loaded'},
-        'POST': {loading: 'statuses.storing', loaded: 'statuses.stored'},
+        'POST': {loading: 'statuses.creature', loaded: 'statuses.created'},
         'PUT': {loading: 'statuses.updating', loaded: 'statuses.updated'},
         'DELETE': {loading: 'statuses.deleting', loaded: 'statuses.deleted'}
     };
@@ -225,7 +225,6 @@ class AxiosService
 
     __parse(message, type = 'info') {
         try {
-            console.info('111', message?.response?.data);
             message =
                 message?.response?.data?.error?.msg ? message?.response?.data?.error?.msg
                     : message?.response?.data?.errors ? message?.response?.data?.errors

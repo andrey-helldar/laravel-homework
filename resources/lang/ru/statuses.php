@@ -3,11 +3,11 @@
 return array (
   'created' => 'Создано',
   'createdAt' => 'Создано',
+  'creature' => 'Создание...',
   'dataNotFound' => 'Данные не найдены',
   'deleted' => 'Удалено',
   'deletedAt' => 'Удалено',
   'deleting' => 'Удаление...',
-  'deliveryAt' => 'Доставка',
   'finished' => 'Завершено',
   'finishedAt' => 'Завершено',
   'gettingWeatherInformation' => 'Получение информации о погоде...',

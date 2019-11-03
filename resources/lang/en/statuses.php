@@ -3,11 +3,11 @@
 return array (
   'created' => 'Created',
   'createdAt' => 'Created At',
+  'creature' => 'Creature...',
   'dataNotFound' => 'Data Not Found',
   'deleted' => 'Deleted',
   'deletedAt' => 'Deleted At',
   'deleting' => 'Deleting...',
-  'deliveryAt' => 'Delivery At',
   'finished' => 'Finished',
   'finishedAt' => 'Finished At',
   'gettingWeatherInformation' => 'Getting weather information...',

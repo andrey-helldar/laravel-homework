@@ -9,6 +9,7 @@ return array (
   'cost' => 'Cost',
   'country' => 'Country',
   'date' => 'Date',
+  'deliveryAt' => 'Delivery At',
   'email' => 'Email',
   'fax' => 'Fax',
   'file' => 'File',

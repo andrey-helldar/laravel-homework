@@ -3,29 +3,48 @@ import _ from 'lodash';
 export default class
 {
     static get(value = null) {
-        return this.build(
-            this.parse(value)
+        let ___parsed = this.__parse(value);
+        let _date = this.__buildDate(___parsed);
+        let _time = this.__buildTime(___parsed);
+
+        return `${_date} ${_time}`;
+    }
+
+    static getDate(value = null) {
+        return this.__buildDate(
+            this.__parse(value)
         );
     }
 
-    static parse(value = null) {
+    static getTime(value = null) {
+        return this.__buildTime(
+            this.__parse(value)
+        );
+    }
+
+    static __parse(value = null) {
         return _.isEmpty(value)
             ? new Date()
             : new Date(value);
     }
 
-    static build(date) {
-        let year = this.firstZero(date.getFullYear());
-        let month = this.firstZero(date.getMonth());
-        let day = this.firstZero(date.getDate());
-        let hours = this.firstZero(date.getHours());
-        let minutes = this.firstZero(date.getMinutes());
+    static __buildDate(date) {
+        let year = this.__firstZero(date.getFullYear());
+        let month = this.__firstZero(date.getMonth() + 1);
+        let day = this.__firstZero(date.getDate());
 
-        return `${year}-${month}-${day} ${hours}:${minutes}`;
+        return `${year}-${month}-${day}`;
     }
 
-    static firstZero(value = 0) {
-        value = parseInt(value);
+    static __buildTime(date) {
+        let hours = this.__firstZero(date.getHours());
+        let minutes = this.__firstZero(date.getMinutes());
+
+        return `${hours}:${minutes}`;
+    }
+
+    static __firstZero(value = 0) {
+        value = _.isInteger(value) ? value : parseInt(value);
 
         return value < 10
             ? '0' + value

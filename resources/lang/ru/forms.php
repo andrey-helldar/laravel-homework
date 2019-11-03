@@ -9,6 +9,7 @@ return array (
   'cost' => 'Стоимость',
   'country' => 'Страна',
   'date' => 'Дата',
+  'deliveryAt' => 'Доставка',
   'email' => 'Email',
   'fax' => 'Факс',
   'file' => 'Файл',
