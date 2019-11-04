@@ -53,14 +53,13 @@ class CompletedOrderMail extends Mailable implements ShouldQueue
 
     private function setTo()
     {
-//        $vendors = $this->order->products
-//            ->transform(function (Product $product) {
-//                return $product->vendor->email;
-//            })
-//            ->toArray();
-
         $this->to($this->order->partner->email);
-//        $this->bcc(array_values($vendors));
+
+        $this->order->products
+            ->each(function (Product $product) {
+                $this->to($product->vendor->email);
+            })
+            ->toArray();
     }
 
     private function totalCost()
