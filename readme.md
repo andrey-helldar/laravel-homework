@@ -34,6 +34,18 @@ APP_LOCALE=en
 
 По-умолчанию, `ru`
 
+
+#### Погода
+
+Для загрузки погоды с сервиса Yandex.Weather API тебуется обязательное наличие ключа - без него сервис ничего не выдаст.
+
+Значение ключа нужно прописать в параметр `YANDEX_WEATHER_API_KEY` файла `.env`.
+
+Для получения ключа перейдите в раздел [документации Яндекс.Погода](https://yandex.ru/dev/weather/doc/dg/concepts/about-docpage/) и прочтите блок "[Начало работы](https://yandex.ru/dev/weather/doc/dg/concepts/about-docpage/#about__onboarding)".
+
+Для проверки достаточно тестового ключа.
+
+
 ---
 
 ## Тестовое задание
