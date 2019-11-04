@@ -2,7 +2,7 @@
     <v-container>
         <form :novalidate="false" @submit.prevent="store">
             <v-layout align-start row wrap>
-                <v-flex v-if="errors" xs12 md12>
+                <v-flex v-if="isNotEmpty(errors)" xs12 md12>
                     <v-container>
                         <errors-component :errors="errors"/>
                     </v-container>
@@ -530,13 +530,11 @@
 
             minDate() {
                 return new Date().toISOString().substr(0, 10);
+            },
+
+            isNotEmpty(value) {
+                return ! _.isEmpty(value);
             }
         }
     };
 </script>
-
-<style scoped>
-    h1 {
-        margin-bottom: 20px;
-    }
-</style>

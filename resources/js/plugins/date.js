@@ -23,9 +23,11 @@ export default class
     }
 
     static __parse(value = null) {
-        return _.isEmpty(value)
-            ? new Date()
-            : new Date(value);
+        return value instanceof Date
+            ? value
+            : _.isEmpty(value)
+                ? new Date()
+                : new Date(value);
     }
 
     static __buildDate(date) {

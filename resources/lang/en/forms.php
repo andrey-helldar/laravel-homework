@@ -43,4 +43,5 @@ return array (
   'title' => 'Title',
   'totalCost' => 'Total Cost',
   'username' => 'Username',
+  'vendor' => 'Vendor',
 );

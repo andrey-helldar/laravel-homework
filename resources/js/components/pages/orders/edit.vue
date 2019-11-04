@@ -2,7 +2,7 @@
     <v-container>
         <form :novalidate="false" @submit.prevent="update">
             <v-layout align-start row wrap>
-                <v-flex v-if="errors" xs12 md12>
+                <v-flex v-if="isNotEmpty(errors)" xs12 md12>
                     <v-container>
                         <errors-component :errors="errors"/>
                     </v-container>
@@ -449,11 +449,9 @@
                             this.progress = true;
                             this.errors = {};
                         })
+                        .then(() => this.isChanged = false)
                         .catch(errors => this.errors = errors)
-                        .finally(() => {
-                            this.progress = false;
-                            this.isChanged = false;
-                        })
+                        .finally(() => this.progress = false)
                         .run();
             },
 
@@ -552,6 +550,10 @@
 
             minDate() {
                 return new Date().toISOString().substr(0, 10);
+            },
+
+            isNotEmpty(value) {
+                return ! _.isEmpty(value);
             }
         }
     };

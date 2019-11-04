@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests;
 
 use App\Models\Partner;
 use App\Models\Product;
-use Helldar\Support\Laravel\Models\ModelHelper;
+use App\Traits\ModelHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -12,6 +12,8 @@ use function trans;
 
 class OrderRequest extends FormRequest
 {
+    use ModelHelper;
+
     public function authorize()
     {
         return true;
@@ -49,19 +51,5 @@ class OrderRequest extends FormRequest
             'partner_id'  => trans('forms.partner'),
             'delivery_at' => trans('forms.deliveryAt'),
         ];
-    }
-
-    /**
-     * @param string $model
-     *
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
-     *
-     * @return string
-     */
-    private function getTable(string $model): string
-    {
-        $helper = new ModelHelper();
-
-        return $helper->table($model);
     }
 }

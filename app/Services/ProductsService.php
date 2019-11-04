@@ -2,34 +2,69 @@
 
 namespace App\Services;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use Helldar\Support\Laravel\Models\ModelHelper;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 
 class ProductsService
 {
-    public function index(): ?Collection
+    private $model;
+
+    public function __construct(ModelHelper $model)
     {
-        return Product::get();
+        $this->model = $model;
     }
 
-    public function store(Request $request): bool
+    public function index(): ?Collection
     {
-        return true;
+        return Product::get()
+            ->load('vendor');
+    }
+
+    /**
+     * @param ProductRequest $request
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return Product
+     */
+    public function store(ProductRequest $request): Product
+    {
+        return Product::create(
+            $this->model->onlyFillable(Product::class, $request)
+        );
     }
 
     public function show(Product $product): Product
     {
-        return $product;
+        return $product->load('vendor');
     }
 
-    public function update(Request $request, Product $product): bool
+    /**
+     * @param ProductRequest $request
+     * @param Product $product
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return bool
+     */
+    public function update(ProductRequest $request, Product $product): bool
     {
-        return true;
+        return $product->update(
+            $this->model->onlyFillable($product, $request)
+        );
     }
 
+    /**
+     * @param Product $product
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
     public function destroy(Product $product): bool
     {
-        return true;
+        return (bool) $product->delete();
     }
 }

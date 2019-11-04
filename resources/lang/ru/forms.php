@@ -43,4 +43,5 @@ return array (
   'title' => 'Заголовок',
   'totalCost' => 'Общая стоимость',
   'username' => 'Никнейм',
+  'vendor' => 'Производитель',
 );

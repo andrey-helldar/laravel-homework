@@ -10,4 +10,6 @@ return [
     'addProduct' => 'Добавить продукт',
 
     'changeQuantity' => 'Изменить количество',
+
+    'orderCompleted' => 'Заказ №:id завершен',
 ];

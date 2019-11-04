@@ -32,7 +32,17 @@
                     :to="{name: editRouteName, params: {id: item.id}}"
                     class="link-as-text"
             >
-                {{ sumProducts(item.products) }}
+                {{ moneyFormat(sumProducts(item.products)) }}
+                {{ trans('orders.symbol') }}
+            </router-link>
+        </template>
+
+        <template v-slot:item.price.one="{ item }">
+            <router-link
+                    :to="{name: editRouteName, params: {id: item.id}}"
+                    class="link-as-text"
+            >
+                {{ moneyFormat(item.price) }}
                 {{ trans('orders.symbol') }}
             </router-link>
         </template>
@@ -136,14 +146,12 @@
     import _ from 'lodash';
 
     export default {
-        props: ['headers', 'url', 'edit-route-name', 'actions', 'messages'],
+        props: ['headers', 'items', 'url', 'edit-route-name', 'actions', 'messages'],
 
         components: {IconDelete, IconEdit, StatusChipNew, StatusChipAccepted, StatusChipFinished},
 
         data() {
             return {
-                items: [],
-
                 rowsPerPageItems: [
                     10, 25, 50,
                     {'text': this.trans('buttons.rowsPerPage'), 'value': -1}
@@ -154,26 +162,16 @@
                 dialogs: {}
             };
         },
-        beforeMount() {
-            this.get();
-        },
         methods: {
-            get() {
-                axios()
-                        .get(this.fixUrl())
-                        .messages(this.messages?.loading, this.messages?.loaded)
-                        .then(response => this.items = response.data)
-                        .run();
-            },
-
             destroy(id) {
-                console.log(this.fixUrl(id));
                 axios()
                         .delete(this.fixUrl(id))
                         .messages(this.messages?.deleting, this.messages?.deleted)
+                        .beforeRun(() => this.closeDialog(id))
                         .then(() => {
-                            this.closeDialog(id);
-                            this.get();
+                            let _item = _.find(this.items, item => item.id === id);
+                            let _index = this.items.indexOf(_item);
+                            this.items.splice(_index, 1);
                         })
                         .run();
             },
@@ -195,17 +193,19 @@
             },
 
             sumProducts(products) {
-                let locale = this.trans('orders.locale');
-
-                let sum = _.sumBy(products, obj => {
+                return _.sumBy(products, obj => {
                     return obj?.price * obj?.pivot?.quantity;
                 });
-
-                return math.moneyFormat(sum, locale);
             },
 
             strRandom() {
                 return str.random();
+            },
+
+            moneyFormat(value) {
+                let locale = this.trans('orders.locale');
+
+                return math.moneyFormat(value, locale);
             },
 
             fixUrl(id = null) {

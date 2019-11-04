@@ -2,20 +2,37 @@
 
 namespace App\Services;
 
+use App\Http\Requests\PartnerRequest;
 use App\Models\Partner;
+use Helldar\Support\Laravel\Models\ModelHelper;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 
 class PartnersService
 {
+    private $model;
+
+    public function __construct(ModelHelper $model)
+    {
+        $this->model = $model;
+    }
+
     public function index(): ?Collection
     {
         return Partner::get();
     }
 
-    public function store(Request $request): bool
+    /**
+     * @param PartnerRequest $request
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return Partner
+     */
+    public function store(PartnerRequest $request): Partner
     {
-        return true;
+        return Partner::create(
+            $this->model->onlyFillable(Partner::class, $request)
+        );
     }
 
     public function show(Partner $partner): Partner
@@ -23,13 +40,30 @@ class PartnersService
         return $partner;
     }
 
-    public function update(Request $request, Partner $partner): bool
+    /**
+     * @param PartnerRequest $request
+     * @param Partner $partner
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return bool
+     */
+    public function update(PartnerRequest $request, Partner $partner): bool
     {
-        return true;
+        return $partner->update(
+            $this->model->onlyFillable($partner, $request)
+        );
     }
 
+    /**
+     * @param Partner $partner
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
     public function destroy(Partner $partner): bool
     {
-        return true;
+        return (bool) $partner->delete();
     }
 }

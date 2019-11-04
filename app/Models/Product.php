@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,8 +27,21 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereUpdatedAt($value)
  * @method static Builder|Product whereVendorId($value)
  * @mixin Eloquent
+ * @property-read \App\Models\Vendor $vendor
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  */
 class Product extends Model
 {
     protected $fillable = ['name', 'price', 'vendor_id'];
+
+    public function vendor(): BelongsTo
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

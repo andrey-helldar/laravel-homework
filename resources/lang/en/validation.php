@@ -98,8 +98,10 @@ return array (
   'not_in' => 'The selected :attribute is invalid.',
   'not_regex' => 'The :attribute format is invalid.',
   'numeric' => 'The :attribute must be a number.',
+  'partner_used' => 'Partner :name is used in existing orders. Removal is not possible.',
   'password' => 'The password is incorrect.',
   'present' => 'The :attribute field must be present.',
+  'product_used' => 'Product :name is used in existing orders. Removal is not possible.',
   'regex' => 'The :attribute format is invalid.',
   'required' => 'The :attribute field is required.',
   'required_if' => 'The :attribute field is required when :other is :value.',
@@ -123,4 +125,5 @@ return array (
   'uploaded' => 'The :attribute failed to upload.',
   'url' => 'The :attribute format is invalid.',
   'uuid' => 'The :attribute must be a valid UUID.',
+  'vendor_used' => 'Vendor :name is used in existing products. Removal is not possible.',
 );

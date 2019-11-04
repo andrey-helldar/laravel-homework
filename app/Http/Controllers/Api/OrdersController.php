@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\OrderRequest;
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Services\OrdersService;
 
@@ -35,11 +35,11 @@ class OrdersController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $message = $this->service->store($request)
-            ? trans('statuses.stored')
-            : trans('errors.0');
+        if ($this->service->store($request)) {
+            return api_response(trans('statuses.stored'));
+        }
 
-        return api_response($message);
+        return api_response(trans('errors.0'), 400);
     }
 
     public function show(Order $order)
@@ -59,11 +59,11 @@ class OrdersController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
-        $message = $this->service->update($request, $order)
-            ? trans('statuses.updated')
-            : trans('errors.0');
+        if ($this->service->update($request, $order)) {
+            return api_response(trans('statuses.updated'));
+        }
 
-        return api_response($message);
+        return api_response(trans('errors.0'), 400);
     }
 
     /**
@@ -75,10 +75,10 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
-        $message = $this->service->destroy($order)
-            ? trans('statuses.deleted')
-            : trans('errors.0');
+        if ($this->service->destroy($order)) {
+            return api_response(trans('statuses.deleted'));
+        }
 
-        return api_response($message);
+        return api_response(trans('errors.0'), 400);
     }
 }

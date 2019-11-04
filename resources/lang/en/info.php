@@ -10,4 +10,6 @@ return [
     'addProduct' => 'Add product',
 
     'changeQuantity' => 'Change quantity',
+
+    'orderCompleted' => 'Order #:id completed',
 ];
