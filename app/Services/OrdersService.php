@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Api\OrderRequest;
+use App\Http\Requests\OrderRequest;
 use App\Mail\CompletedOrderMail;
 use App\Models\Order;
 use Helldar\Support\Laravel\Models\ModelHelper;

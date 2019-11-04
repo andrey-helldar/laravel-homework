@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductsService;
 use Illuminate\Http\Request;
@@ -23,13 +24,20 @@ class ProductsController extends Controller
         return api_response($items);
     }
 
-    public function store(Request $request)
+    /**
+     * @param ProductRequest $request
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function store(ProductRequest $request)
     {
-        $message = $this->service->store($request)
-            ? trans('statuses.stored')
-            : trans('errors.0');
+        if ($this->service->store($request)) {
+            return api_response(trans('statuses.stored'));
+        }
 
-        return api_response($message);
+        return api_response(trans('errors.0'), 400);
     }
 
     public function show(Product $product)
@@ -39,21 +47,46 @@ class ProductsController extends Controller
         return api_response($item);
     }
 
-    public function update(Request $request, Product $product)
+    /**
+     * @param ProductRequest $request
+     * @param Product $product
+     *
+     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function update(ProductRequest $request, Product $product)
     {
-        $message = $this->service->update($request, $product)
-            ? trans('statuses.updated')
-            : trans('errors.0');
+        if ($this->service->update($request, $product)) {
+            return api_response(trans('statuses.updated'));
+        }
 
-        return api_response($message);
+        return api_response(trans('errors.0'), 400);
     }
 
-    public function destroy(Product $product)
+    /**
+     * @param Request $request
+     * @param Product $product
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function destroy(Request $request, Product $product)
     {
-        $message = $this->service->destroy($product)
-            ? trans('statuses.deleted')
-            : trans('errors.0');
+        $request->request->add(['count' => $product->orders()->count()]);
 
-        return api_response($message);
+        $this->validate($request, [
+            'count' => ['required', 'integer', 'size:0'],
+        ], [
+            'count.size' => trans('validation.product_used', ['name' => $product->name]),
+        ]);
+
+        if ($this->service->destroy($product)) {
+            return api_response(trans('statuses.deleted'));
+        }
+
+        return api_response(trans('errors.0'), 400);
     }
 }

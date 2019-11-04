@@ -28,6 +28,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Product whereVendorId($value)
  * @mixin Eloquent
  * @property-read \App\Models\Vendor $vendor
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  */
 class Product extends Model
 {
@@ -36,5 +38,10 @@ class Product extends Model
     public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
     }
 }

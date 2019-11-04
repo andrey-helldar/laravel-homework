@@ -34,8 +34,8 @@
                 },
 
                 statuses: {
-                    loading: this.trans('statuses.gettingWeatherInformation'),
-                    loaded: this.trans('statuses.weatherInformationSuccessfullyReceived')
+                    loading: this.trans('statuses.loadingWeather'),
+                    loaded: this.trans('statuses.loadedWeather')
                 }
             };
         },

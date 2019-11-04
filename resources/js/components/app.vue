@@ -19,3 +19,13 @@
         components: {HeaderComponent, ContentComponent, FooterComponent, NavComponent}
     };
 </script>
+
+<style>
+    .snotify-success .snotifyToast__inner {
+        color: #C8E6C9;
+    }
+
+    .snotify-error .snotifyToast__inner {
+        color: #FFE1E3;
+    }
+</style>

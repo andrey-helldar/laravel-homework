@@ -60,8 +60,8 @@
                     editRouteName: 'orders.edit',
                     actions: ['edit', 'delete'],
                     messages: {
-                        loading: this.trans('statuses.retrievingOrderInformation'),
-                        loaded: this.trans('statuses.orderInformationReceivedSuccessfully')
+                        loading: this.trans('statuses.loadingOrders'),
+                        loaded: this.trans('statuses.loadedOrders')
                     }
                 },
 
@@ -136,9 +136,3 @@
         }
     };
 </script>
-
-<style>
-    .snotify-success .snotifyToast__inner {
-        color: #C8E6C9;
-    }
-</style>

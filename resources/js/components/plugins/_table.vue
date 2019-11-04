@@ -32,7 +32,17 @@
                     :to="{name: editRouteName, params: {id: item.id}}"
                     class="link-as-text"
             >
-                {{ sumProducts(item.products) }}
+                {{ moneyFormat(sumProducts(item.products)) }}
+                {{ trans('orders.symbol') }}
+            </router-link>
+        </template>
+
+        <template v-slot:item.price.one="{ item }">
+            <router-link
+                    :to="{name: editRouteName, params: {id: item.id}}"
+                    class="link-as-text"
+            >
+                {{ moneyFormat(item.price) }}
                 {{ trans('orders.symbol') }}
             </router-link>
         </template>
@@ -155,13 +165,15 @@
         methods: {
             destroy(id) {
                 axios()
-                    .delete(this.fixUrl(id))
-                    .messages(this.messages?.deleting, this.messages?.deleted)
-                    .then(() => {
-                        this.closeDialog(id);
-                        this.get();
-                    })
-                    .run();
+                        .delete(this.fixUrl(id))
+                        .messages(this.messages?.deleting, this.messages?.deleted)
+                        .beforeRun(() => this.closeDialog(id))
+                        .then(() => {
+                            let _item = _.find(this.items, item => item.id === id);
+                            let _index = this.items.indexOf(_item);
+                            this.items.splice(_index, 1);
+                        })
+                        .run();
             },
 
             closeDialog(id) {
@@ -181,27 +193,29 @@
             },
 
             sumProducts(products) {
-                let locale = this.trans('orders.locale');
-
-                let sum = _.sumBy(products, obj => {
+                return _.sumBy(products, obj => {
                     return obj?.price * obj?.pivot?.quantity;
                 });
-
-                return math.moneyFormat(sum, locale);
             },
 
             strRandom() {
                 return str.random();
             },
 
+            moneyFormat(value) {
+                let locale = this.trans('orders.locale');
+
+                return math.moneyFormat(value, locale);
+            },
+
             fixUrl(id = null) {
                 let _url = _.endsWith(this.url, '/')
-                    ? this.url
-                    : this.url + '/';
+                        ? this.url
+                        : this.url + '/';
 
                 return _.isNull(id)
-                    ? _url
-                    : _url + id;
+                        ? _url
+                        : _url + id;
             }
         }
     };
