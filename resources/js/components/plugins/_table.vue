@@ -1,8 +1,8 @@
 <template>
     <v-data-table
+            :footer-props="footerProps"
             :headers="headers"
             :items="items"
-            :items-per-page-options="rowsPerPageItems"
             :search="search"
             item-key="title"
             calculate-widths
@@ -152,10 +152,12 @@
 
         data() {
             return {
-                rowsPerPageItems: [
-                    10, 25, 50,
-                    {'text': this.trans('buttons.rowsPerPage'), 'value': -1}
-                ],
+                footerProps: {
+                    itemsPerPageOptions: [
+                        10, 25, 50,
+                        {'text': this.trans('buttons.all'), 'value': -1}
+                    ]
+                },
 
                 search: null,
 
