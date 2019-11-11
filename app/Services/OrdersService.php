@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\OrderRequest;
 use App\Mail\CompletedOrderMail;
 use App\Models\Order;
+use Carbon\Carbon;
 use Helldar\Support\Laravel\Models\ModelHelper;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
@@ -40,7 +41,7 @@ class OrdersService
             $this->model->onlyFillable(Order::class, $request)
         );
 
-        $this->attachProduct($request, $order);
+        $this->syncProducts($request, $order);
 
         return true;
     }
@@ -64,8 +65,7 @@ class OrdersService
             $this->model->onlyFillable($order, $request)
         );
 
-        $this->deleteProducts($request, $order);
-        $this->attachProduct($request, $order);
+        $this->syncProducts($request, $order);
         $this->sendEmail($order);
 
         return true;
@@ -83,27 +83,22 @@ class OrdersService
         return $order->delete();
     }
 
-    private function deleteProducts(OrderRequest $request, Order $order): void
+    private function syncProducts(OrderRequest $request, Order $order): void
     {
         $products = $request->get('products');
-        $ids      = Arr::pluck($products, 'id');
+        $items    = [];
 
-        $order->products()->sync($ids);
-    }
-
-    private function attachProduct(OrderRequest $request, Order $order): void
-    {
-        foreach ($request->get('products') as $product) {
-            $product_id = Arr::get($product, 'id');
+        array_map(function ($product) use (&$items, $order) {
+            $id         = Arr::get($product, 'id');
             $price      = Arr::get($product, 'price');
             $quantity   = Arr::get($product, 'pivot.quantity');
             $created_at = $order->created_at;
+            $updated_at = Carbon::now();
 
-            $order->pivotProduct()->updateOrCreate(
-                compact('product_id'),
-                compact('price', 'quantity', 'created_at')
-            );
-        }
+            Arr::set($items, $id, compact('price', 'quantity', 'created_at', 'updated_at'));
+        }, $products);
+
+        $order->products()->sync($items);
     }
 
     private function sendEmail(Order $order)
