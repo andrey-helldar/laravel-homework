@@ -33,11 +33,9 @@ class VendorsController extends Controller
      */
     public function store(VendorRequest $request)
     {
-        if ($this->service->store($request)) {
-            return api_response(trans('statuses.stored'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->store($request)
+            ? api_response(trans('statuses.stored'))
+            : api_response(trans('errors.0'), 400);
     }
 
     public function show(Vendor $vendor)
@@ -57,11 +55,9 @@ class VendorsController extends Controller
      */
     public function update(VendorRequest $request, Vendor $vendor)
     {
-        if ($this->service->update($request, $vendor)) {
-            return api_response(trans('statuses.updated'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->update($request, $vendor)
+            ? api_response(trans('statuses.updated'))
+            : api_response(trans('errors.0'), 400);
     }
 
     /**
@@ -77,16 +73,13 @@ class VendorsController extends Controller
     {
         $request->request->add(['count' => $vendor->products()->count()]);
 
-        $this->validate($request, [
-            'count' => ['required', 'integer', 'size:0'],
-        ], [
-            'count.size' => trans('validation.vendor_used', ['name' => $vendor->name]),
-        ]);
+        $this->validate($request,
+            ['count' => ['required', 'integer', 'size:0']],
+            ['count.size' => trans('validation.vendor_used', ['name' => $vendor->name])]
+        );
 
-        if ($this->service->destroy($vendor)) {
-            return api_response(trans('statuses.deleted'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->destroy($vendor)
+            ? api_response(trans('statuses.deleted'))
+            : api_response(trans('errors.0'), 400);
     }
 }

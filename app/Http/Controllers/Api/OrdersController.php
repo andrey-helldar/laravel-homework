@@ -35,11 +35,9 @@ class OrdersController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        if ($this->service->store($request)) {
-            return api_response(trans('statuses.stored'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->store($request)
+            ? api_response(trans('statuses.stored'))
+            : api_response(trans('errors.0'), 400);
     }
 
     public function show(Order $order)
@@ -59,11 +57,9 @@ class OrdersController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
-        if ($this->service->update($request, $order)) {
-            return api_response(trans('statuses.updated'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->update($request, $order)
+            ? api_response(trans('statuses.updated'))
+            : api_response(trans('errors.0'), 400);
     }
 
     /**
@@ -75,10 +71,8 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
-        if ($this->service->destroy($order)) {
-            return api_response(trans('statuses.deleted'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->destroy($order)
+            ? api_response(trans('statuses.deleted'))
+            : api_response(trans('errors.0'), 400);
     }
 }

@@ -36,11 +36,9 @@ class PartnersController extends Controller
      */
     public function store(PartnerRequest $request)
     {
-        if ($this->service->store($request)) {
-            return api_response(trans('statuses.stored'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->store($request)
+            ? api_response(trans('statuses.stored'))
+            : api_response(trans('errors.0'), 400);
     }
 
     public function show(Partner $partner)
@@ -60,11 +58,9 @@ class PartnersController extends Controller
      */
     public function update(PartnerRequest $request, Partner $partner)
     {
-        if ($this->service->update($request, $partner)) {
-            return api_response(trans('statuses.updated'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->update($request, $partner)
+            ? api_response(trans('statuses.updated'))
+            : api_response(trans('errors.0'), 400);
     }
 
     /**
@@ -80,16 +76,13 @@ class PartnersController extends Controller
     {
         $request->request->add(['count' => $partner->orders()->count()]);
 
-        $this->validate($request, [
-            'count' => ['required', 'integer', 'size:0'],
-        ], [
-            'count.size' => trans('validation.partner_used', ['name' => $partner->name]),
-        ]);
+        $this->validate($request,
+            ['count' => ['required', 'integer', 'size:0']],
+            ['count.size' => trans('validation.partner_used', ['name' => $partner->name])]
+        );
 
-        if ($this->service->destroy($partner)) {
-            return api_response(trans('statuses.deleted'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->destroy($partner)
+            ? api_response(trans('statuses.deleted'))
+            : api_response(trans('errors.0'), 400);
     }
 }

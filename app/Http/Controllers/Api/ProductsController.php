@@ -33,11 +33,9 @@ class ProductsController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if ($this->service->store($request)) {
-            return api_response(trans('statuses.stored'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->store($request)
+            ? api_response(trans('statuses.stored'))
+            : api_response(trans('errors.0'), 400);
     }
 
     public function show(Product $product)
@@ -57,11 +55,9 @@ class ProductsController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if ($this->service->update($request, $product)) {
-            return api_response(trans('statuses.updated'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->update($request, $product)
+            ? api_response(trans('statuses.updated'))
+            : api_response(trans('errors.0'), 400);
     }
 
     /**
@@ -77,16 +73,13 @@ class ProductsController extends Controller
     {
         $request->request->add(['count' => $product->orders()->count()]);
 
-        $this->validate($request, [
-            'count' => ['required', 'integer', 'size:0'],
-        ], [
-            'count.size' => trans('validation.product_used', ['name' => $product->name]),
-        ]);
+        $this->validate($request,
+            ['count' => ['required', 'integer', 'size:0']],
+            ['count.size' => trans('validation.product_used', ['name' => $product->name])]
+        );
 
-        if ($this->service->destroy($product)) {
-            return api_response(trans('statuses.deleted'));
-        }
-
-        return api_response(trans('errors.0'), 400);
+        return $this->service->destroy($product)
+            ? api_response(trans('statuses.deleted'))
+            : api_response(trans('errors.0'), 400);
     }
 }
