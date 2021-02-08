@@ -9,7 +9,7 @@
 Установите зависимости:
 
 ```
-$ composer install --optimize-autoloader --no-suggest
+$ composer install
 $ php artisan migrate:fresh --seed
 $ yarn install
 ```
