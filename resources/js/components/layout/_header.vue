@@ -1,31 +1,31 @@
 <template>
     <v-app-bar
-            app
-            color="deep-purple"
-            dark
+        app
+        color="deep-purple"
+        dark
     >
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-        <v-toolbar-title v-text="title"/>
+        <v-toolbar-title v-text="title" />
     </v-app-bar>
 </template>
 
 <script>
-    export default {
-        computed: {
-            title() {
-                return this.$store.getters['main/pageTitle'];
+export default {
+    computed: {
+        title() {
+            return this.$store.getters['main/pageTitle'];
+        },
+
+        drawer: {
+            get() {
+                return this.$store.getters['main/drawler'];
             },
 
-            drawer: {
-                get() {
-                    return this.$store.getters['main/drawler'];
-                },
-
-                set(value) {
-                    this.$store.commit('main/drawler', value);
-                }
+            set(value) {
+                this.$store.commit('main/drawler', value);
             }
         }
-    };
+    }
+};
 </script>

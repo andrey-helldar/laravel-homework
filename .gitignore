@@ -9,12 +9,12 @@
 
 .env
 .env.backup
-
-Homestead.json
-Homestead.yaml
+http-client.private.env.json
 
 .phpstorm.meta.php
 _ide_helper.php
+_ide_helper_models.php
 
 *.log
 *.cache
+*.orig

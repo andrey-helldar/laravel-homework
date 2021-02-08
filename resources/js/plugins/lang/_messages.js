@@ -1,5 +1,5 @@
 function load(path) {
-    return require(`../../../lang/${path}`);
+    return require(`../../../lang/${ path }`);
 }
 
 export default {

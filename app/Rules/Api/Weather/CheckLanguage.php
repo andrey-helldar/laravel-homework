@@ -10,19 +10,19 @@ use function in_array;
 
 class CheckLanguage implements Rule
 {
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return in_array($value, Weather::LANGUAGES);
     }
 
-    public function message()
+    public function message(): string
     {
         $languages = $this->getLanguages();
 
         return 'The language must be one of: ' . $languages;
     }
 
-    private function getLanguages(): string
+    protected function getLanguages(): string
     {
         return implode(', ', Weather::LANGUAGES);
     }

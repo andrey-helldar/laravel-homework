@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use function api_response;
-use function trans;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+
+use function __;
+use function abort;
 
 class IndexController extends Controller
 {
-    public function index($slug = null)
+    public function index($slug = null): Factory|View|Application
     {
-        return view('index');
+        return \view('index');
     }
 
     public function abort($slug = null)
     {
-        $message = trans('errors.405');
-
-        return api_response($message, 405);
+        abort(405, __('errors.405'));
     }
 }

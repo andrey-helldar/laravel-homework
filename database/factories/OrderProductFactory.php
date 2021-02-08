@@ -1,17 +1,37 @@
 <?php
 
+namespace Database\Factories;
+
+use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/** @var Factory $factory */
-$factory->define(OrderProduct::class, function () {
-    $product  = Product::query()->inRandomOrder()->first();
-    $quantity = rand(1, 3);
+final class OrderProductFactory extends Factory
+{
+    protected $model = OrderProduct::class;
 
-    return [
-        'product_id' => $product->id,
-        'quantity'   => $quantity,
-        'price'      => $product->price,
-    ];
-});
+    public function definition(): array
+    {
+        $order   = $this->order();
+        $product = $this->product();
+
+        return [
+            'order_id'   => $order->id,
+            'product_id' => $product->id,
+
+            'quantity' => $this->faker->numberBetween(1, 4),
+            'price'    => $product->price,
+        ];
+    }
+
+    protected function order(): Order
+    {
+        return Order::inRandomOrder()->first();
+    }
+
+    protected function product(): Product
+    {
+        return Product::inRandomOrder()->first();
+    }
+}

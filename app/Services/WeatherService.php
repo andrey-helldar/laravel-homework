@@ -2,61 +2,51 @@
 
 namespace App\Services;
 
-use App\Exceptions\Api\ValidationException;
+use App\Constants\Weather;
 use App\Validators\WeatherValidator;
 use GuzzleHttp\Client;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
-use function config;
-use function http_build_query;
-use function json_decode;
-
-class WeatherService
+class WeatherService extends BaseService
 {
-    private $client;
-
-    private $validator;
-
-    public function __construct(Client $client, WeatherValidator $validator)
-    {
-        $this->client    = $client;
-        $this->validator = $validator;
+    public function __construct(
+        protected Client $client,
+        protected WeatherValidator $validator
+    ) {
     }
 
-    /**
-     * @throws ValidationException
-     *
-     * @return object
-     */
     public function get()
     {
-        $response = $this->client->get($this->buildUrl(), $this->buildOptions());
-        $content  = $response->getBody()->getContents();
-
-        return json_decode($content);
+        return Http::withHeaders($this->headers())
+            ->get($this->url(), $this->query())
+            ->throw()
+            ->json();
     }
 
-    /**
-     * @throws ValidationException
-     *
-     * @return string
-     */
-    private function buildUrl(): string
+    protected function url(): string
     {
-        $url = config('weather.api_url');
-        $url = Str::finish($url, '?');
-
-        return $url . $this->buildQuery();
+        return config('weather.api_url');
     }
 
-    /**
-     * @throws ValidationException
-     *
-     * @return string
-     */
-    private function buildQuery(): string
+    protected function query(): array
     {
-        $params = [
+        $params = $this->parameters();
+
+        $this->validator->check($params);
+
+        return $params;
+    }
+
+    protected function headers(): array
+    {
+        return [
+            'X-Yandex-API-Key' => config('weather.api_key'),
+        ];
+    }
+
+    protected function parameters(): array
+    {
+        return [
             'lat'   => $this->getLatitude(),
             'lon'   => $this->getLongitude(),
             'lang'  => $this->getLanguage(),
@@ -64,48 +54,36 @@ class WeatherService
             'hours' => $this->getHours(),
             'extra' => $this->getExtra(),
         ];
-
-        $this->validator->check($params);
-
-        return http_build_query($params);
     }
 
-    private function buildOptions(): array
-    {
-        return [
-            'verify'  => false,
-            'headers' => ['X-Yandex-API-Key' => config('weather.api_key')],
-        ];
-    }
-
-    private function getLatitude(): float
+    protected function getLatitude(): float
     {
         return (float) config('weather.latitude');
     }
 
-    private function getLongitude(): float
+    protected function getLongitude(): float
     {
         return (float) config('weather.longitude');
     }
 
-    private function getLanguage(): string
+    protected function getLanguage(): string
     {
-        return config('weather.lang', 'ru_RU');
+        return config('weather.lang', Weather::DEFAULT_LANGUAGE);
     }
 
-    private function getLimit(): int
+    protected function getLimit(): int
     {
         $value = (int) config('weather.limit', 7);
 
         return $value >= 1 ? $value : 1;
     }
 
-    private function getHours(): bool
+    protected function getHours(): bool
     {
         return (bool) config('weather.hours', true);
     }
 
-    private function getExtra(): bool
+    protected function getExtra(): bool
     {
         return (bool) config('weather.extra', false);
     }

@@ -2,28 +2,18 @@
 
 namespace App\Validators;
 
-use App\Exceptions\Api\ValidationException;
 use App\Rules\Api\Math\IsDouble;
 use App\Rules\Api\Weather\CheckLanguage;
 use Illuminate\Support\Facades\Validator;
 
 class WeatherValidator
 {
-    /**
-     * @param array $params
-     *
-     * @throws ValidationException
-     */
     public function check(array $params)
     {
-        $validator = Validator::make($params, $this->rules());
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator->errors()->first());
-        }
+        Validator::make($params, $this->rules())->validate();
     }
 
-    private function rules(): array
+    protected function rules(): array
     {
         return [
             'lat'   => ['required', new IsDouble()],

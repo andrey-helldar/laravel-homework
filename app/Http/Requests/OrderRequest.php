@@ -2,32 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Partner;
-use App\Models\Product;
-use App\Traits\ModelHelper;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\{Partner, Product};
 use Illuminate\Validation\Rule;
 
-use function trans;
-
-class OrderRequest extends FormRequest
+class OrderRequest extends BaseRequest
 {
-    use ModelHelper;
-
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
-     *
-     * @return array
-     */
     public function rules(): array
     {
-        $partners_table = $this->getTable(Partner::class);
-        $products_table = $this->getTable(Product::class);
+        $partners_table = $this->model()->table(Partner::class);
+        $products_table = $this->model()->table(Product::class);
 
         return [
             'status'       => ['required', 'integer', Rule::in([0, 10, 20])],
@@ -46,10 +29,10 @@ class OrderRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'status'      => trans('forms.status'),
-            'products'    => trans('forms.products'),
-            'partner_id'  => trans('forms.partner'),
-            'delivery_at' => trans('forms.deliveryAt'),
+            'status'      => __('forms.status'),
+            'products'    => __('forms.products'),
+            'partner_id'  => __('forms.partner'),
+            'delivery_at' => __('forms.deliveryAt'),
         ];
     }
 }

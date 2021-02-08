@@ -2,17 +2,13 @@
 
 namespace App\Providers;
 
+use Helldar\ApiResponse\Services\Response;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+final class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        //
-    }
-
-    public function boot()
-    {
-        //
+        Response::withoutWrap();
     }
 }

@@ -25,10 +25,10 @@ class AxiosService
     _availableMethods = ['GET', 'POST', 'PUT', 'DELETE'];
 
     _availableMessages = {
-        'GET': {loading: 'statuses.loading', loaded: 'statuses.loaded'},
-        'POST': {loading: 'statuses.creature', loaded: 'statuses.created'},
-        'PUT': {loading: 'statuses.updating', loaded: 'statuses.updated'},
-        'DELETE': {loading: 'statuses.deleting', loaded: 'statuses.deleted'}
+        'GET': { loading: 'statuses.loading', loaded: 'statuses.loaded' },
+        'POST': { loading: 'statuses.creature', loaded: 'statuses.created' },
+        'PUT': { loading: 'statuses.updating', loaded: 'statuses.updated' },
+        'DELETE': { loading: 'statuses.deleting', loaded: 'statuses.deleted' }
     };
 
     _method = 'GET';
@@ -45,7 +45,7 @@ class AxiosService
 
     method(value) {
         if (_.indexOf(this._availableMethods, _.toUpper(value)) === -1) {
-            throw `Unknown method "${value}"!`;
+            throw `Unknown method "${ value }"!`;
         }
 
         this._method = value;
@@ -191,7 +191,7 @@ class AxiosService
 
                     resolve(_.merge(notify, {
                         html: this._loadedMessage,
-                        config: _.merge(config, {timeout: 1000})
+                        config: _.merge(config, { timeout: 1000 })
                     }));
                 })
                 .catch(error => {
@@ -216,11 +216,11 @@ class AxiosService
     __checkMessages() {
         this._loadingMessage = this._loadingMessage
             ? Lang.get(this._loadingMessage)
-            : Lang.get(_.get(this._availableMessages, `${this._method}.loading`));
+            : Lang.get(_.get(this._availableMessages, `${ this._method }.loading`));
 
         this._loadedMessage = this._loadedMessage
             ? Lang.get(this._loadedMessage)
-            : Lang.get(_.get(this._availableMessages, `${this._method}.loaded`));
+            : Lang.get(_.get(this._availableMessages, `${ this._method }.loaded`));
     }
 
     __parse(message, type = 'info') {
@@ -241,7 +241,7 @@ class AxiosService
             type = 'error';
         }
 
-        return {message, type};
+        return { message, type };
     }
 }
 

@@ -7,10 +7,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    protected $commands = [
-        //
-    ];
-
     protected function schedule(Schedule $schedule)
     {
         //
@@ -19,5 +15,24 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__ . '/Commands');
+
+        if ($this->consoleRoutesExist()) {
+            $this->requireConsoleRoutes();
+        }
+    }
+
+    protected function consoleRoutesPath(): string
+    {
+        return base_path('routes/console.php');
+    }
+
+    protected function requireConsoleRoutes()
+    {
+        require $this->consoleRoutesPath();
+    }
+
+    protected function consoleRoutesExist(): bool
+    {
+        return file_exists($this->consoleRoutesPath());
     }
 }

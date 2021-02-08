@@ -1,17 +1,17 @@
 <template>
-    <v-content>
-        <v-layout justify-center fill-height>
+    <v-main>
+        <v-layout fill-height justify-center>
             <v-container>
-                <transition-view-component/>
+                <transition-view-component />
             </v-container>
         </v-layout>
-    </v-content>
+    </v-main>
 </template>
 
 <script>
-    import TransitionViewComponent from './_transition-view';
+import TransitionViewComponent from './_transition-view';
 
-    export default {
-        components: {TransitionViewComponent}
-    };
+export default {
+    components: { TransitionViewComponent }
+};
 </script>

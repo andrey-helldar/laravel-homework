@@ -11,7 +11,7 @@ use function is_numeric;
 
 class IsDouble implements Rule
 {
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         if (! is_numeric($value)) {
             return false;
@@ -22,7 +22,7 @@ class IsDouble implements Rule
         return is_double($value) || is_float($value);
     }
 
-    public function message()
+    public function message(): string
     {
         return 'The number in :attribute field must be fractional.';
     }

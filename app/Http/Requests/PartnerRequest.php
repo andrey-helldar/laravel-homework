@@ -3,46 +3,16 @@
 namespace App\Http\Requests;
 
 use App\Models\Partner;
-use App\Traits\ModelHelper;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Unique;
 
-class PartnerRequest extends FormRequest
+class PartnerRequest extends BaseRequest
 {
-    use ModelHelper;
-
-    public function authorize()
+    public function rules(): array
     {
-        return true;
-    }
+        $unique = $this->getUnique(Partner::class);
 
-    /**
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
-     *
-     * @return array
-     */
-    public function rules()
-    {
         return [
-            'email' => ['required', 'string', 'email', 'max:255', $this->getUnique()],
-            'name'  => ['required', 'string', 'max:255', $this->getUnique()],
+            'email' => ['required', 'string', 'email', 'max:255', $unique],
+            'name'  => ['required', 'string', 'max:255', $unique],
         ];
-    }
-
-    /**
-     * @throws \Helldar\Support\Exceptions\Laravel\IncorrectModelException
-     *
-     * @return array
-     */
-    private function getUnique(): Unique
-    {
-        $table_name = $this->getTable(Partner::class);
-
-        if ($id = $this->request->get('id')) {
-            return Rule::unique($table_name)->ignore($id);
-        }
-
-        return Rule::unique($table_name);
     }
 }

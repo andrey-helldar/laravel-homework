@@ -9,7 +9,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->tinyInteger('status');
             $table->string('client_email');

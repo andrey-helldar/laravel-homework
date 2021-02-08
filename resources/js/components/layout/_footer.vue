@@ -1,28 +1,28 @@
 <template>
     <v-footer
-            app
-            class="center-align"
-            color="deep-purple"
-            min-height="48"
+        app
+        class="white--text justify-center"
+        color="deep-purple"
+        min-height="48"
     >
-        <span class="white--text">{{ currentYear() }}</span>
+        {{ currentYear() }} © {{ title }}
     </v-footer>
 </template>
 
 <script>
-    export default {
-        methods: {
-            currentYear() {
-                let date = new Date;
-
-                return date.getFullYear();
-            }
+export default {
+    computed: {
+        title() {
+            return this.$store.getters['main/pageTitle'];
         }
-    };
-</script>
+    },
 
-<style scoped>
-    .center-align {
-        justify-content: center;
+    methods: {
+        currentYear() {
+            let date = new Date;
+
+            return date.getFullYear();
+        }
     }
-</style>
+};
+</script>

@@ -9,7 +9,7 @@ class CreatePartnersTable extends Migration
     public function up()
     {
         Schema::create('partners', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
 
             $table->string('email')->unique();
             $table->string('name');

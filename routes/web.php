@@ -1,6 +1,7 @@
 <?php
 
+use App\Http\Controllers\IndexController;
+
 app('router')
-    ->get('{slug?}', 'IndexController@index')
-    ->where('slug', '.*')
+    ->get('{slug?}', [IndexController::class, 'index'])
     ->name('index');

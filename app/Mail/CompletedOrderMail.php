@@ -2,31 +2,27 @@
 
 namespace App\Mail;
 
-use App\Models\Order;
-use App\Models\OrderProduct;
-use App\Models\Product;
+use App\Models\{Order, OrderProduct, Product};
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+use function __;
 use function config;
-use function trans;
 
 class CompletedOrderMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public $order;
-
-    public $total_cost = 0;
-
-    public function __construct(Order $order)
-    {
-        $this->order = $order;
+    public function __construct(
+        public Order $order,
+        public int $total_cost = 0
+    ) {
     }
 
-    public function build()
+    public function build(): CompletedOrderMail
     {
         $this->setFrom();
         $this->setTo();
@@ -36,14 +32,14 @@ class CompletedOrderMail extends Mailable implements ShouldQueue
         return $this->markdown('emails.edited-order');
     }
 
-    private function setSubject()
+    protected function setSubject(): void
     {
         $this->subject(
-            trans('info.orderCompleted', ['id' => $this->order->id])
+            __('info.orderCompleted', ['id' => $this->order->id])
         );
     }
 
-    private function setFrom()
+    protected function setFrom(): void
     {
         $this->from(
             config('mail.from.address'),
@@ -51,7 +47,7 @@ class CompletedOrderMail extends Mailable implements ShouldQueue
         );
     }
 
-    private function setTo()
+    protected function setTo(): void
     {
         $this->to($this->order->partner->email);
 
@@ -62,12 +58,9 @@ class CompletedOrderMail extends Mailable implements ShouldQueue
             ->toArray();
     }
 
-    private function totalCost()
+    protected function totalCost(): void
     {
         $this->total_cost = $this->order->pivotProduct
-            ->transform(function (OrderProduct $order_product) {
-                return $order_product->price * $order_product->quantity;
-            })
-            ->sum();
+            ->sum(static fn (OrderProduct $order_product) => $order_product->price * $order_product->quantity);
     }
 }

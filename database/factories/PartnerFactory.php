@@ -1,13 +1,19 @@
 <?php
 
-use App\Models\Partner;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+namespace Database\Factories;
 
-/** @var Factory $factory */
-$factory->define(Partner::class, function (Faker $faker) {
-    return [
-        'email' => $faker->unique()->safeEmail,
-        'name'  => $faker->unique()->company,
-    ];
-});
+use App\Models\Partner;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+final class PartnerFactory extends Factory
+{
+    protected $model = Partner::class;
+
+    public function definition(): array
+    {
+        return [
+            'email' => $this->faker->unique()->safeEmail,
+            'name'  => $this->faker->unique()->company,
+        ];
+    }
+}

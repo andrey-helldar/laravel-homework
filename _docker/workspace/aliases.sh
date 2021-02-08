@@ -50,12 +50,7 @@ alias cla="clear && ls -la"
 alias cll="clear && ls -l"
 alias cls="clear && ls"
 alias code="cd /var/www"
-alias ea="nano ~/aliases.sh"
-
-# My aliases
-alias cr="composer require"
-alias cu="composer update"
-alias da="composer dumpauto -o"
+alias ea="vi ~/aliases.sh"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -92,7 +87,6 @@ alias npm-global="npm list -g --depth 0"
 alias ra="reload"
 alias reload="source ~/.aliases && echo \"$COL_GREEN ==> Aliases Reloaded... $COL_RESET \n \""
 alias run="npm run"
-alias tree="xtree"
 
 # Xvfb
 alias xvfb="Xvfb -ac :0 -screen 0 1024x768x16 &"

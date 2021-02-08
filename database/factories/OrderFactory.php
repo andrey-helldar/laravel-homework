@@ -1,21 +1,50 @@
 <?php
 
+namespace Database\Factories;
+
 use App\Models\Order;
-use Carbon\Carbon;
-use Faker\Generator as Faker;
-use Illuminate\Database\Eloquent\Factory;
+use App\Models\Partner;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 
-/** @var Factory $factory */
-$factory->define(Order::class, function (Faker $faker) {
-    $created_at = Carbon::now()->subDays(rand(0, 4));
-    $status     = [0, 10, 20];
+final class OrderFactory extends Factory
+{
+    protected $model = Order::class;
 
-    return [
-        'status'       => $status[rand(0, 2)],
-        'client_email' => $faker->safeEmail,
-        'partner_id'   => $faker->numberBetween(1, 20),
-        'delivery_at'  => $created_at->copy()->addHours(rand(6, 50)),
-        'created_at'   => $created_at,
-        'updated_at'   => $created_at->copy()->addHours(rand(1, 5)),
-    ];
-});
+    public function definition(): array
+    {
+        $date = $this->date();
+
+        return [
+            'status'       => $this->getRandomStatus(),
+            'client_email' => $this->faker->safeEmail,
+
+            'partner_id' => $this->getPartnerId(),
+
+            'delivery_at' => $date->copy()->addHours(rand(6, 50)),
+            'created_at'  => $date,
+            'updated_at'  => $date->copy()->addHours(1, 5),
+        ];
+    }
+
+    protected function statuses(): array
+    {
+        return [0, 10, 20];
+    }
+
+    protected function getRandomStatus(): int
+    {
+        return Arr::random($this->statuses());
+    }
+
+    protected function getPartnerId(): int
+    {
+        return Partner::inRandomOrder()->first()->id;
+    }
+
+    protected function date(): Carbon
+    {
+        return Carbon::now()->subDays(rand(0, 4));
+    }
+}

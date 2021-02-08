@@ -7,7 +7,7 @@ export default class
         let _date = this.__buildDate(___parsed);
         let _time = this.__buildTime(___parsed);
 
-        return `${_date} ${_time}`;
+        return `${ _date } ${ _time }`;
     }
 
     static getDate(value = null) {
@@ -35,14 +35,14 @@ export default class
         let month = this.__firstZero(date.getMonth() + 1);
         let day = this.__firstZero(date.getDate());
 
-        return `${year}-${month}-${day}`;
+        return `${ year }-${ month }-${ day }`;
     }
 
     static __buildTime(date) {
         let hours = this.__firstZero(date.getHours());
         let minutes = this.__firstZero(date.getMinutes());
 
-        return `${hours}:${minutes}`;
+        return `${ hours }:${ minutes }`;
     }
 
     static __firstZero(value = 0) {

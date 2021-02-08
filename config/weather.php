@@ -6,7 +6,9 @@ return [
      * Ссылка на Yandex Weather API.
      */
 
-    'api_url' => 'https://api.weather.yandex.ru/v1/forecast',
+    'api_url' => env('YANDEX_WEATHER_TEST')
+        ? 'https://api.weather.yandex.ru/v2/forecast'
+        : 'https://api.weather.yandex.ru/v2/informers',
 
     /*
      * Ключ, полученный на этапе подключения к API Яндекс.Погоды.

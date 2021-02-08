@@ -2,20 +2,20 @@
 
 return [
 
-    'supportsCredentials' => false,
+    'paths' => ['*'],
 
-    'allowedOrigins' => [
-        parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST),
-    ],
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 
-    'allowedOriginsPatterns' => [],
+    'allowed_origins' => env('APP_ENV') === 'production' ? [env('APP_WEB_HOST')] : ['*'],
 
-    'allowedHeaders' => ['*'],
+    'allowed_origins_patterns' => [],
 
-    'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE'],
+    'allowed_headers' => ['*'],
 
-    'exposedHeaders' => [],
+    'exposed_headers' => [],
 
-    'maxAge' => 0,
+    'max_age' => 0,
+
+    'supports_credentials' => true,
 
 ];

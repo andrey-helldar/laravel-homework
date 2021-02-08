@@ -19,17 +19,17 @@ export default class Item
     }
 
     redirect(name) {
-        this._redirect = {name};
+        this._redirect = { name };
 
         return this;
     }
 
     component(path = null) {
-        path = _.isNull(path) ? 'layout/_transition-view' : `pages/${path}`;
+        path = _.isNull(path) ? 'layout/_transition-view' : `pages/${ path }`;
 
         let name = _.kebabCase(path);
 
-        this._component = Vue.component(name, require(`../../components/${path}`).default);
+        this._component = Vue.component(name, require(`../../components/${ path }`).default);
 
         return this;
     }

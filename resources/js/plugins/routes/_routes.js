@@ -1,4 +1,4 @@
-import {ICON_APARTMENT, ICON_ASSIGNMENT, ICON_DASHBOARD, ICON_GROUP, ICON_SHOPPING_CART} from '../constants/_icons';
+import { ICON_APARTMENT, ICON_ASSIGNMENT, ICON_DASHBOARD, ICON_GROUP, ICON_SHOPPING_CART } from '../constants/_icons';
 
 import Item from './_item';
 import map from './_map';

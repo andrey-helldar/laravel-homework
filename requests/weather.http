@@ -2,3 +2,11 @@ GET http://localhost/api/weather
 Accept: application/json
 
 ###
+GET https://api.weather.yandex.ru/v2/informers?lat={{latitude}}&lon={{longitude}}&limit={{limit}}&hours={{hours}}&extra={{extra}}&lang={{lang}}
+Accept: application/json
+X-Yandex-API-Key: {{key}}
+
+###
+GET https://api.weather.yandex.ru/v2/informers?lat=53.243562&lon=34.363407&lang=ru_RU&limit=1&hours=0&extra=0"
+Accept: application/json
+X-Yandex-API-Key: {{key}}

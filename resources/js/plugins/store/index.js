@@ -6,5 +6,5 @@ import main from './modules/_main';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {main}
+    modules: { main }
 });
