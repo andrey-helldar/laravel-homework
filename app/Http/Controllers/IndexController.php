@@ -8,12 +8,13 @@ use Illuminate\Contracts\View\View;
 
 use function __;
 use function abort;
+use function view;
 
 class IndexController extends Controller
 {
     public function index($slug = null): Factory|View|Application
     {
-        return \view('index');
+        return view('index');
     }
 
     public function abort($slug = null)
