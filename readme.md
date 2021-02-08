@@ -10,8 +10,13 @@
 
 ```
 $ composer install
+$ npm install
+```
+
+Разверните миграции и накатите сиды:
+
+```
 $ php artisan migrate:fresh --seed
-$ yarn install
 ```
 
 Скомпилируйте зависимости для фронта:
