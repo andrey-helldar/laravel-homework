@@ -15,7 +15,10 @@ mix
     })
 
     .js(assets + 'js/app.js', 'public/js')
+    .vue()
     .extract()
+
+    .copy(assets + 'images/robot.png', 'public/images')
 
     .version()
     .sourceMaps()
