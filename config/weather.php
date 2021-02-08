@@ -6,7 +6,7 @@ return [
      * Ссылка на Yandex Weather API.
      */
 
-    'api_url' => env('YANDEX_WEATHER_TEST')
+    'api_url' => (bool) env('YANDEX_WEATHER_TEST', true)
         ? 'https://api.weather.yandex.ru/v2/forecast'
         : 'https://api.weather.yandex.ru/v2/informers',
 
