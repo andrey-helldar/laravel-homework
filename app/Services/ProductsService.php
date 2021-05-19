@@ -15,21 +15,21 @@ class ProductsService extends BaseService
 
     public function store(ProductRequest $request): Product
     {
-        return Product::create(
-            $this->model()->onlyFillable(Product::class, $request)
-        );
+        $data = $this->model()->onlyFillable(Product::class, $request);
+
+        return Product::create($data);
     }
 
     public function show(Product $product): Product
     {
-        return $product->load('vendor');
+        return $product->loadMissing('vendor');
     }
 
     public function update(ProductRequest $request, Product $product): bool
     {
-        return $product->update(
-            $this->model()->onlyFillable($product, $request)
-        );
+        $data = $this->model()->onlyFillable($product, $request);
+
+        return $product->update($data);
     }
 
     public function destroy(Product $product): bool

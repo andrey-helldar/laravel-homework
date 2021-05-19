@@ -15,9 +15,9 @@ class VendorsService extends BaseService
 
     public function store(VendorRequest $request): Vendor
     {
-        return Vendor::create(
-            $this->model()->onlyFillable(Vendor::class, $request)
-        );
+        $data = $this->model()->onlyFillable(Vendor::class, $request);
+
+        return Vendor::create($data);
     }
 
     public function show(Vendor $vendor): Vendor
@@ -27,9 +27,9 @@ class VendorsService extends BaseService
 
     public function update(VendorRequest $request, Vendor $vendor): bool
     {
-        return $vendor->update(
-            $this->model()->onlyFillable($vendor, $request)
-        );
+        $data = $this->model()->onlyFillable($vendor, $request);
+
+        return $vendor->update($data);
     }
 
     public function destroy(Vendor $vendor): bool

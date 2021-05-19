@@ -15,9 +15,9 @@ class PartnersService extends BaseService
 
     public function store(PartnerRequest $request): Partner
     {
-        return Partner::create(
-            $this->model()->onlyFillable(Partner::class, $request)
-        );
+        $data = $this->model()->onlyFillable(Partner::class, $request);
+
+        return Partner::create($data);
     }
 
     public function show(Partner $partner): Partner
@@ -27,9 +27,9 @@ class PartnersService extends BaseService
 
     public function update(PartnerRequest $request, Partner $partner): bool
     {
-        return $partner->update(
-            $this->model()->onlyFillable($partner, $request)
-        );
+        $data = $this->model()->onlyFillable($partner, $request);
+
+        return $partner->update($data);
     }
 
     public function destroy(Partner $partner): bool
