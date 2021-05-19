@@ -11,8 +11,8 @@
         "php": "^8.0",
         "ext-json": "*",
         "andrey-helldar/api-response": "^8.0",
-        "andrey-helldar/laravel-support": "^1.4",
-        "andrey-helldar/support": "^2.0",
+        "andrey-helldar/laravel-support": "^2.0",
+        "andrey-helldar/support": "^3.0",
         "fakerphp/faker": "^1.10",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
@@ -21,8 +21,8 @@
         "laravel/tinker": "^2.0"
     },
     "require-dev": {
-        "andrey-helldar/lang-translations": "^3.0",
-        "andrey-helldar/laravel-lang-publisher": "^8.1",
+        "andrey-helldar/lang-translations": "^4.0",
+        "andrey-helldar/laravel-lang-publisher": "^9.0",
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^2.0",
@@ -61,7 +61,6 @@
         "post-update-cmd": [
             "php artisan optimize:clear",
 
-            "php artisan lang-translations:update",
             "php artisan lang:update",
 
             "php artisan ide-helper:models -R -N",
