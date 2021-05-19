@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'unknownError' => 'Unknown Error',
     '0'            => 'Unknown Error',
     '100'          => 'Continue',
     '101'          => 'Switching Protocols',
@@ -73,4 +72,5 @@ return [
     '524'          => 'A Timeout Occurred',
     '525'          => 'SSL Handshake Failed',
     '526'          => 'Invalid SSL Certificate',
+    'unknownError' => 'Unknown Error',
 ];
